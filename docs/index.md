@@ -15,7 +15,7 @@ Travel Wise: Entdeckungsreise
 
 ## Team members
 Le Chau Anh Do
-Yasin Cherif
+/Yasin Cherif
 ### [Jane Dane]
 
 About
