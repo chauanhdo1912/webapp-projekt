@@ -2,35 +2,29 @@
 title: Home
 nav_order: 0
 ---
-
-{: .attention }
-> Any text enclosed by `[ ]` are placeholders, including the opening and closing brackets.
->
-> You may delete this `attention` box.
-
-# [Project Name]
+# [Entdeckungsreise]
 Travel Wise: Entdeckungsreise
 
-[Project description]
+[Reisende mit einem offenen Mindset, die nicht nur an klassischen Touristenorten interessiert sind, sondern vor allem an persönlichen Erlebnissen und Entdeckungen, die sie mit anderen teilen möchten. ]
 
 ## Team members
-Le Chau Anh Do
-/Yasin Cherif
-### [Jane Dane]
+>Le Chau Anh Do
+>Yasin Cherif
+### [Le Chau Anh Do]
 
 About
-: Some info about Jane
+: Derzeit im 4. Semester mit Schwerpunkt Wirtschaftsinformatik. Hat einfache Interessen. Verbringt normalerweise viel Zeit allein. Liebt Katzen wirklich. Hat genug Entschlossenheit und Begeisterung, um etwas zu lernen, wenn wirklich Interesse besteht.
 
 Matr.-Nr.
-: 1234567
+: 77211984073
 
-### [Joe Doe]
+### [Yasin Cherif]
 
 About
 : Some info about Joe
 
 Matr.-Nr.
-: 1234567
+: 77211973042
 
 ## Eidesstattliche Erklärung
 
