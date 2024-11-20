@@ -1,16 +1,16 @@
 ---
-title: Home
+title: About the project
 nav_order: 0
 ---
 # [Entdeckungsreise]
 Travel Wise: Entdeckungsreise
 
-[Reisende mit einem offenen Mindset, die nicht nur an klassischen Touristenorten interessiert sind, sondern vor allem an persönlichen Erlebnissen und Entdeckungen, die sie mit anderen teilen möchten. ]
+[Ein App für Reisende mit einem offenen Mindset, die nicht nur an klassischen Touristenorten interessiert sind, sondern vor allem an persönlichen Erlebnissen und Entdeckungen, die sie mit anderen teilen möchten. ]
 
 ## Team members
->Le Chau Anh Do
+Le Chau Anh Do <br>
 
->Yasin Cherif
+Yasin Cherif
 ### [Le Chau Anh Do]
 
 About
