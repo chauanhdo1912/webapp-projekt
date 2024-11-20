@@ -9,11 +9,13 @@ nav_order: 0
 > You may delete this `attention` box.
 
 # [Project Name]
+Travel Wise: Entdeckungsreise
 
 [Project description]
 
 ## Team members
-
+Le Chau Anh Do
+Yasin Cherif
 ### [Jane Dane]
 
 About
