@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meine Webseite</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='Hauptseite.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <button class="nav-button" onclick="window.location.href='/'">Home</button>
+            <button class="nav-button" onclick="window.location.href='/Feed'">Feed</button>
+            <button class="nav-button" onclick="window.location.href='/Login'">Login</button>
+        </header>
+        <div class="left-aside">Linke Sidebar</div>
+        <main>
+            <h1>Post a discovery</h1>
+            <div>
+    <h1>Upload Your Travel Photo</h1>
+
+    <!-- Form để tải ảnh và mô tả -->
+    <form action="/post" method="POST" enctype="multipart/form-data">
+        <label for="file">Choose an image to upload:</label>
+        <input type="file" name="file" id="file" required><br><br>
+
+        <label for="description">Describe your experience:</label><br>
+        <textarea name="description" id="description" rows="4" cols="50" required></textarea><br><br>
+
+        <button type="submit">Post</button>
+    </form>
+
+    <br>
+    <a href="/feed">Go to Feed</a>
+    </div>
+        </main>
+        <div class="right-aside">Rechte Sidebar</div>
+        <footer>Footer</footer>
+    </div>
+    
+</body>
+</html>
