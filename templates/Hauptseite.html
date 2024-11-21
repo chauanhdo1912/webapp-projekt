@@ -7,15 +7,36 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='Hauptseite.css') }}">
 </head>
 <body>
-<h1>Überschrift</h1>
-    <div class="navbar">
-        Navigations-Leiste
-    </div>
-    <div class="info-text">
-        Text 1
-    </div>
-    <div class="info-text">
-        Text 2
+    <div class="container">
+        <header>
+            <button class="nav-button" onclick="window.location.href='/Testseite'">Testseite</button>
+            <button class="nav-button" onclick="window.location.href='/Infoseite'">Infoseite</button>
+            <button class="nav-button" onclick="window.location.href='/Login'">Login</button>
+        </header>
+        <div class="left-aside">Linke Sidebar</div>
+        <main>
+            <h1>Endeckungsreise</h1>
+            <div class="info-text">
+                <h2>  Momente festhalten</h2>
+                Teile deine besonderen Erlebnisse in Berlin mit der Community! 
+                <br>
+                Lade Fotos deiner Entdeckungen hoch – ob versteckte Hinterhöfe, Street Art, besondere Cafés oder magische Sonnenuntergänge an der Spree.
+            </div>
+            <div class="info-text">
+            <h2> Geolocation aktivieren</h2>
+                Füge den genauen Ort hinzu, an dem du deinen Moment erlebt hast. 
+                <br>
+                So können andere Reisende deine Inspiration auf ihrer eigenen Tour durch Berlin entdecken.
+            </div>
+            <div class="info-text">
+            <h2>Hashtags setzen</h2>
+                Markiere deine Einträge mit passenden Hashtags, die dein Erlebnis beschreiben.
+                <br>
+                 Ob #UrbanVibes, #HiddenGems oder #BerlinFoodies – deine Tags helfen Gleichgesinnten, deine Highlights zu finden.
+            </div>        
+        </main>
+        <div class="right-aside">Rechte Sidebar</div>
+        <footer>Footer</footer>
     </div>
 </body>
 </html>
