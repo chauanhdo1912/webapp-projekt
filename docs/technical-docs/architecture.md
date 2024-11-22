@@ -149,4 +149,68 @@ Nach erfolgreicher Anmeldung wird der Nutzer zur Startseite weitergeleitet.
 
 ## Cross-cutting concerns
 
-[Describe anything that is important for a solid understanding of your codebase. Most likely, you want to explain the behavior of (parts of) your application. In this section, you may also link to important [design decisions](../design-decisions.md).]
+## **1. Datei- und Medienmanagement**
+
+- **Funktionalität**:
+  - Validiert hochgeladene Dateien basierend auf erlaubten Dateiformaten (`png`, `jpg`, etc.).
+  - Speichert hochgeladene Bilder im Verzeichnis `static/images`.
+- **Risiken**:
+  - Große Dateien können die Leistung der Anwendung beeinträchtigen.
+  - Nicht bereinigte Dateinamen könnten Sicherheitsrisiken darstellen.
+- **Empfehlungen**:
+  - Die Dateigröße begrenzen.
+  - Dateien in eindeutige Bezeichner umbenennen, um Konflikte und Sicherheitsprobleme zu vermeiden.
+  - Cloud-Speicher (z. B. AWS S3) für bessere Skalierbarkeit nutzen.
+
+---
+
+## **2. Datenbankkonsistenz**
+
+- **Integrität**:
+  - Das `Post`-Modell erzwingt erforderliche Felder (`nullable=False`).
+  - SQLAlchemy stellt sicher, dass Transaktionen atomar sind.
+- **Skalierbarkeit**:
+  - SQLite eignet sich für kleine Anwendungen, könnte jedoch unter starker Last zum Engpass werden.
+  - Wechseln Sie zu PostgreSQL für bessere Leistung in produktiven Umgebungen.
+
+---
+
+## **3. Sicherheit**
+
+- **Dateisicherheit**:
+  - Validieren und bereinigen Sie alle hochgeladenen Dateien.
+  - Beschränken Sie den direkten Zugriff auf hochgeladene Dateien über Flask's `send_from_directory`.
+- **Datensicherheit**:
+  - Aktuell gibt es keine Nutzer-Authentifizierung. Fügen Sie eine sichere Anmeldung mit gehashten Passwörtern hinzu (z. B. mit `bcrypt` oder `Flask-Login`).
+
+---
+
+## **4. Skalierbarkeit und Leistung**
+
+- **Aktuelle Einschränkungen**:
+  - Die Leistung von SQLite nimmt bei gleichzeitigen Schreibvorgängen ab.
+  - Die lokale Speicherung von Medien kann schnell zum Engpass werden.
+
+---
+
+## **5. Template-Rendering**
+
+- Templates rendern Inhalte dynamisch mit Jinja2.
+- Wiederverwendbare Komponenten (z. B. Header, Footer) vereinfachen das Design.
+- Zukünftige Verbesserungen könnten Teil-Templates für Beiträge beinhalten, um die Rendering-Logik des Feeds zu optimieren.
+
+---
+
+## **6. Fehlerbehandlung**
+
+- **Aktueller Stand**:
+  - Grundlegende Überprüfungen auf fehlende Dateien beim Upload.
+
+---
+
+## **7. Design-Entscheidungen**
+
+ - **Routenorganisation**:
+   - Alle Routen befinden sich derzeit in einer einzigen Datei zur Vereinfachung.
+   .
+
