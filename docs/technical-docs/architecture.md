@@ -19,53 +19,64 @@ nav_order: 1
 
 ## Overview
 
- # Post-Seite (Le Chau Anh Do)
->Funktion: Nutzer können neue Inhalte erstellen.
+# **Dokumentation der Seiten**
 
->Ablauf:
+---
 
->Nutzer lädt ein Bild von seinem Gerät hoch.
+## **Post-Seite (Le Chau Anh Do)**
 
->Nutzer fügt eine kurze Beschreibung hinzu.
+### **Funktion:**  
+Nutzer können neue Inhalte erstellen.
 
->Hashtags können eingegeben werden, um den Beitrag leichter auffindbar zu machen.
+### **Ablauf:**  
+1. Nutzer lädt ein Bild von seinem Gerät hoch.  
+2. Nutzer fügt eine kurze Beschreibung hinzu.  
+3. Hashtags können eingegeben werden, um den Beitrag leichter auffindbar zu machen.  
+4. Der Standort wird auf einer Karte ausgewählt.  
+5. Nach dem Klick auf “Posten” wird der Beitrag veröffentlicht und automatisch im Feed angezeigt.
 
->Der Standort wird auf einer Karte ausgewählt.
+---
 
->Nach dem Klick auf "Posten" wird der Beitrag veröffentlicht und automatisch im Feed angezeigt.
+## **Feed-Seite (Le Chau Anh Do)**
 
- # Feed-Seite (Le Chau Anh Do)
->Funktion: Zeigt alle veröffentlichten Beiträge an und ermöglicht Interaktionen.
+### **Funktion:**  
+Zeigt alle veröffentlichten Beiträge an und ermöglicht Interaktionen.
 
->blauf:
+### **Ablauf:**  
+1. Alle Beiträge, einschließlich des neuesten, werden in einem scrollbaren Feed dargestellt.  
+2. Nutzer können Beiträge mit “Gefällt mir” markieren.  
+3. Kommentare können unter Beiträgen hinzugefügt werden.  
+4. Beiträge können gespeichert werden, um sie später erneut anzusehen.
 
->Alle Beiträge, einschließlich des neuesten, werden in einem scrollbaren Feed dargestellt.
+---
 
->Nutzer können Beiträge mit "Gefällt mir" markieren, Kommentare hinzufügen und sie für später speichern.
+## **Profil-Seite (Yasin Cherif)**
 
- # Profil-Seite (Yasin Cherif)
->Funktion: Speichert und zeigt persönliche Informationen sowie die vom Nutzer erstellten oder gespeicherten Beiträge an.
+### **Funktion:**  
+Speichert und zeigt persönliche Informationen sowie die vom Nutzer erstellten oder gespeicherten Beiträge an.
 
->Ablauf:
+### **Ablauf:**  
+1. Nutzer können ihr Profilbild, ihren Namen und ihre Bio sehen oder bearbeiten.  
+2. Eine Liste aller vom Nutzer veröffentlichten Beiträge wird angezeigt.  
+3. Ein separater Bereich zeigt die Beiträge, die der Nutzer gespeichert hat.
 
->Nutzer können ihr Profilbild, ihren Namen und ihre Bio sehen oder bearbeiten.
+---
 
->Eine Liste aller veröffentlichten Beiträge wird angezeigt.
+## **Login-Seite (Yasin Cherif)**
 
->Ein separater Bereich zeigt die Beiträge, die der Nutzer gespeichert hat.
+### **Funktion:**  
+Ermöglicht die Anmeldung und Registrierung.
 
- # Login-Seite (Yasin Cherif)
->Funktion: Ermöglicht die Anmeldung und Registrierung.
+### **Ablauf:**  
+1. **Anmelden:**  
+   - Nutzer gibt seine registrierte E-Mail-Adresse und das Passwort ein, um sich anzumelden.  
 
->Ablauf:
-
-> - Anmelden:
-
->Nutzer gibt seine registrierte E-Mail-Adresse und das Passwort ein, um sich anzumelden.
-
-> - Registrieren:
-Neue Nutzer können ein Konto erstellen, indem sie ihre E-Mail-Adresse, einen Namen und ein Passwort angeben.
-Nach erfolgreicher Anmeldung wird der Nutzer zur Startseite weitergeleitet.
+2. **Registrieren:**  
+   - Neue Nutzer können ein Konto erstellen, indem sie folgende Angaben machen:  
+     - E-Mail-Adresse  
+     - Name  
+     - Passwort  
+   - Nach erfolgreicher Registrierung wird der Nutzer zur Startseite weitergeleitet.
 
 ## Codemap
 
