@@ -56,7 +56,7 @@ Lieblingsfunktionen: Beiträge teilen, Fotos hochladen, Beschreibungen und Bewer
 
 ## Customer journey
 
-[Bildschirm 1: Startbildschirm (Home Screen)
+- Bildschirm 1: Startbildschirm (Home Screen)
 
 Inhalt:
 
@@ -69,32 +69,53 @@ Anmelden: Nutzer gibt Anmeldedaten ein (E-Mail oder Social Media).
 Registrieren: Nutzer erstellt ein neues Konto, falls noch nicht vorhanden.
 
 
-Bildschirm 2: Anmeldescreen (Login Screen)
+- Bildschirm 2: Anmeldescreen (Login Screen)
+
 Inhalt:
+
 Formular zur Eingabe von E-Mail und Passwort für die Anmeldung.
+
 Option zum Passwort vergessen.
+
 Registrieren-Button für neue Nutzer.
 
-Bildschirm 3: Registrierungs-Screen (Register Screen)
+- Bildschirm 3: Registrierungs-Screen (Register Screen)
+
 Inhalt:
+
 Formular zur Eingabe der persönlichen Informationen (Name, E-Mail, Passwort).
+
 CTA: "Jetzt registrieren".
 
-Bildschirm 4: Onboarding-Screen (Post Seite)
+- Bildschirm 4: Onboarding-Screen (Post Seite)
+
 Inhalt:
+
 Foto auswählen: Button zum Hochladen eines Fotos von der Geräteliste.
+
 Textfeld für Beschreibung: Möglichkeit, eine kurze Beschreibung hinzuzufügen.
+
 Hashtags hinzufügen: Eingabefeld für relevante Hashtags.
+
 Ort auswählen: Nutzer kann den Ort auf der Karte auswählen oder eingeben.
+
 Button "Posten": Um den Beitrag zu veröffentlichen.
 
-Bildschirm 6: Feed-Screen (Feed Screen)
+- Bildschirm 5: Feed-Screen (Feed Screen)
+
 Inhalt:
+
 Der neu erstellte Beitrag des Nutzers wird oben im Feed angezeigt.
+
 Beiträge anderer Nutzer sind ebenfalls sichtbar.
+
 Interaktionsmöglichkeiten:
+
 Liken: Der Nutzer kann Beiträge mögen.
+
 Kommentieren: Der Nutzer kann Kommentare unter den Beiträgen hinterlassen.
+
 Speichern: Der Nutzer kann Beiträge speichern, um sie später anzusehen.
-Bildschirm 7: Profil Seite
+
+- Bildschirm 7: Profil Seite.
 Inhalt: Gepostete Artikel und archivierte Artikel]
