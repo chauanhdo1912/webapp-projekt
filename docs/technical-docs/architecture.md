@@ -5,7 +5,7 @@ nav_order: 1
 ---
 
 {: .label }
-[Jane Dane]
+[Le Chau Anh Do]
 
 {: .no_toc }
 # Architecture
@@ -33,7 +33,7 @@ nav_order: 1
 
 ## Overview
 
-#Post-Seite (Le Chau Anh Do)
+# Post-Seite (Le Chau Anh Do)
 >Funktion: Nutzer können neue Inhalte erstellen.
 >Ablauf:
 >Nutzer lädt ein Bild von seinem Gerät hoch.
@@ -41,18 +41,18 @@ nav_order: 1
 >Hashtags können eingegeben werden, um den Beitrag leichter auffindbar zu machen.
 >Der Standort wird auf einer Karte ausgewählt.
 >Nach dem Klick auf "Posten" wird der Beitrag veröffentlicht und automatisch im Feed angezeigt.
-#Feed-Seite (Le Chau Anh Do
+# Feed-Seite (Le Chau Anh Do)
 >Funktion: Zeigt alle veröffentlichten Beiträge an und ermöglicht Interaktionen.
 >blauf:
 >Alle Beiträge, einschließlich des neuesten, werden in einem scrollbaren Feed dargestellt.
 >Nutzer können Beiträge mit "Gefällt mir" markieren, Kommentare hinzufügen und sie für später speichern.
-#Profil-Seite (Yasin Cherif
+# Profil-Seite (Yasin Cherif)
 >Funktion: Speichert und zeigt persönliche Informationen sowie die vom Nutzer erstellten oder gespeicherten Beiträge an.
 >Ablauf:
 >Nutzer können ihr Profilbild, ihren Namen und ihre Bio sehen oder bearbeiten.
 >Eine Liste aller veröffentlichten Beiträge wird angezeigt.
 >Ein separater Bereich zeigt die Beiträge, die der Nutzer gespeichert hat.
-#Login-Seite (Yasin Cherif)
+# Login-Seite (Yasin Cherif)
 >Funktion: Ermöglicht die Anmeldung und Registrierung.
 >Ablauf:
 > - Anmelden:
