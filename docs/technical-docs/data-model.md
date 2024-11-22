@@ -53,7 +53,7 @@ class Post(db.Model):
     def __repr__(self):
         return f"Post('{self.image_file}', '{self.description}')"
 
-### **3. Nutzer-Modell (zukünftige Implementierung)**
+## **3. Nutzer-Modell (zukünftige Implementierung)**
 
 Ein zukünftiges Update könnte ein **User-Modell** einführen, um Nutzerkonten zu verwalten. Dieses Modell könnte folgendermaßen strukturiert sein:
 
