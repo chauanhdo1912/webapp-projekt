@@ -83,7 +83,69 @@ Nach erfolgreicher Anmeldung wird der Nutzer zur Startseite weitergeleitet.
 
 ## Codemap
 
-[Describe how your app is structured. Don't aim for completeness, rather describe *just* the most important parts.]
+## **1. Aufbau der Anwendung**
+
+- **Framework**: Flask 
+- **Datenbank**: SQLite 
+- **Statische Inhalte**: Bilder, die von Nutzern hochgeladen werden, werden im Ordner `static/images` gespeichert.
+
+### Wichtige Konfigurationen
+- `SQLALCHEMY_DATABASE_URI`: Pfad zur SQLite-Datenbank.
+- `UPLOAD_FOLDER`: Verzeichnis für hochgeladene Bilder.
+- `ALLOWED_EXTENSIONS`: Liste der erlaubten Dateiformate (`png`, `jpg`, `jpeg`, `gif`).
+
+---
+
+## **2. Hauptkomponenten**
+
+### **Routen**
+1. **Startseite (`/`)**:
+   - Rendert die Hauptseite (`Hauptseite.html`).
+
+2. **Post-Seite (`/post`)**:
+   - Ermöglicht Nutzern das Hochladen von Bildern, Hinzufügen von Beschreibungen und Veröffentlichen von Beiträgen.
+   - Validiert Dateitypen und speichert Bilder im Upload-Ordner.
+   - Fügt neue Einträge zur Datenbank hinzu.
+
+3. **Feed-Seite (`/feed`)**:
+   - Zeigt alle Beiträge der Nutzer aus der Datenbank in einer scrollbaren Ansicht.
+   - Ermöglicht Interaktionen wie „Gefällt mir“, Kommentare und das Speichern von Beiträgen.
+
+4. **Login-Seite (`/Login`)**:
+   - Platzhalter für Nutzeranmeldung und Registrierung.
+
+### **Datenbank**
+- **Post-Modell**:
+  - `id`: Primärschlüssel zur Identifizierung der Beiträge.
+  - `image_file`: Speichert den Dateinamen des hochgeladenen Bildes.
+  - `description`: Speichert die Beschreibung, die der Nutzer angegeben hat.
+
+### **Templates**
+- `Hauptseite.html`: Landing-Page.
+- `Post.html`: Upload-Interface für das Erstellen neuer Beiträge.
+- `Feed.html`: Zeigt eine Liste aller Beiträge.
+- `Login.html`: Interface für Nutzeranmeldung.
+
+---
+
+## **3. Hilfsfunktionen**
+
+1. **Datei-Validierung**:
+   - Funktion: `allowed_file(filename)`
+   - Stellt sicher, dass hochgeladene Dateien den erlaubten Formaten entsprechen.
+
+2. **Datenbankinitialisierung**:
+   - `db.create_all()` wird verwendet, um das Datenbankschema zu initialisieren.
+
+---
+
+### **4. Ablauf der Anwendung**
+
+1. **Startseite**: Nutzer landen auf der Hauptseite und navigieren zu anderen Funktionen.
+2. **Post-Erstellung**: Nutzer laden Bilder hoch, geben Beschreibungen ein und veröffentlichen Beiträge.
+3. **Feed-Anzeige**: Nutzer sehen ihre Beiträge zusammen mit anderen Beiträgen.
+4. **Login**: Platzhalter für zukünftige Authentifizierungsfunktionen.
+
 
 ## Cross-cutting concerns
 
