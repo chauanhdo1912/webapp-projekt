@@ -22,7 +22,7 @@ Matr.-Nr.
 ### [Yasin Cherif]
 
 About
-: Some info about Joe
+: Some info about Yasin
 
 Matr.-Nr.
 : 77211973042
