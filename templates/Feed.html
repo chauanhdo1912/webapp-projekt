@@ -15,9 +15,18 @@
         </header>
         <div class="left-aside">Linke Sidebar</div>
         <main>
-            <h1>Die Feedseite</h1>
-            <div class="info-text">
-                Willkommen auf der Feedseite!
+            <h1>Travel Feed</h1>
+
+    <!-- Hiển thị các bài đăng -->
+    {% for post in posts %}
+        <div>
+            <img src="{{ url_for('static', filename='images/' + post.image_file) }}" alt="Travel Photo" width="300"><br>
+            <p>{{ post.description }}</p>
+            <hr>
+        </div>
+    {% endfor %}
+
+    <a href="/">Go to Post Page</a>
             </div>
         </main>
         <div class="right-aside">Rechte Sidebar</div>

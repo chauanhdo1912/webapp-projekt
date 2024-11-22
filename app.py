@@ -4,7 +4,8 @@ import os
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///instance/posts.db'
+basedir = os.path.abspath(os.path.dirname(__file__))  # Thư mục gốc của ứng dụng
+app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{os.path.join(basedir, "instance", "posts.db")}'
 app.config['UPLOAD_FOLDER'] = 'static/images'  
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'} 
 db = SQLAlchemy(app)
