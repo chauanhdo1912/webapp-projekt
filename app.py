@@ -4,7 +4,7 @@ import os
 
 app = Flask(__name__)
 
-basedir = os.path.abspath(os.path.dirname(__file__))  # Thư mục gốc của ứng dụng
+basedir = os.path.abspath(os.path.dirname(__file__))  # Root file
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{os.path.join(basedir, "instance", "posts.db")}'
 app.config['UPLOAD_FOLDER'] = 'static/images'  
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'} 
@@ -43,32 +43,31 @@ if __name__ == "__main__":
 @app.route('/post', methods=['GET', 'POST'])
 def post():
     if request.method == 'POST':
-        # Kiểm tra nếu có file ảnh
+        # Check if image file available
         if 'file' not in request.files:
             print("No file part")
             return redirect(request.url)
         file = request.files['file']
         description = request.form.get('description')
 
-        # Nếu file hợp lệ, lưu file và mô tả vào cơ sở dữ liệu
+        # if correct
         if file and allowed_file(file.filename):
             filename = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
             file.save(filename)
 
-            # Lưu vào cơ sở dữ liệu
+            # save in feed
             new_post = Post(image_file=file.filename, description=description)
             db.session.add(new_post)
             db.session.commit()
 
-            return redirect(url_for('feed'))  # Sau khi đăng, chuyển hướng đến trang feed
+            return redirect(url_for('feed'))  
 
-    return render_template('post.html')  # Hiển thị trang post khi phương thức GET
-
+    return render_template('post.html')  
 if __name__ == "__main__":
-    db.create_all()  # Tạo cơ sở dữ liệu nếu chưa tồn tại
-    app.run(debug=True)  # Chạy Fl
+    db.create_all()  
+    app.run(debug=True)  
 
 @app.route('/feed')
 def feed():
-    posts = Post.query.all()  # Lấy tất cả bài đăng từ cơ sở dữ liệu
+    posts = Post.query.all()  # take all the available file
     return render_template('Feed.html', posts=posts)

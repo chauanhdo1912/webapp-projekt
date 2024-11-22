@@ -17,7 +17,7 @@
         <main>
             <h1>Travel Feed</h1>
 
-    <!-- Hiển thị các bài đăng -->
+    <!-- Post in Feed -->
     {% for post in posts %}
         <div>
             <img src="{{ url_for('static', filename='images/' + post.image_file) }}" alt="Travel Photo" width="300"><br>
