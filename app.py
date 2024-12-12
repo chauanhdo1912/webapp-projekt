@@ -7,8 +7,8 @@ from functools import wraps
 
 # Diese Funktion erstellt die SQLite-Datenbank und die Tabelle
 def init_db():
-    if not os.path.exists('Nutzer.db'):
-        conn = sqlite3.connect('Nutzer.db')  # Diese Zeile erstellt die Datei, wenn sie noch nicht existiert
+    if not os.path.exists('users.db'):
+        conn = sqlite3.connect('users.db')  # Diese Zeile erstellt die Datei, wenn sie noch nicht existiert
         cursor = conn.cursor()
         
         # Tabelle erstellen
@@ -62,7 +62,7 @@ def Login():
         username = request.form['username']
         password = request.form['password']
      
-        conn = sqlite3.connect('Nutzer.db')
+        conn = sqlite3.connect('users.db')
         cursor = conn.cursor()
         cursor.execute('SELECT password FROM users WHERE username = ?', (username,))
         result = cursor.fetchone()  # Nur ein Ergebnis zurückholen
@@ -90,7 +90,7 @@ def Registrieren():
         username = request.form['username']
         password = request.form['password']
 
-        conn = sqlite3.connect('Nutzer.db')
+        conn = sqlite3.connect('users.db')
         cursor = conn.cursor()
         cursor.execute('SELECT id FROM users WHERE username = ?', (username,))
         existing_user = cursor.fetchone()
