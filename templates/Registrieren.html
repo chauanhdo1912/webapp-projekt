@@ -1,55 +1,59 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meine Webseite</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='Hauptseite.css') }}">
 </head>
+
 <body>
+
     <div class="container">
+
         <header>
             <button class="nav-button" onclick="window.location.href='/'">Home</button>
             <button class="nav-button" onclick="window.location.href='/Post'">Post</button>
             <button class="nav-button" onclick="window.location.href='/Feed'">Feed</button>
         </header>
+        
         <div class="left-aside">Linke Sidebar</div>
+
         <main>
 
-            <h1>Login</h1>
+            <h1>Registrieren</h1>
 
             <div class="info-text">
-                Willkommen auf dem Login!
+                Willkommen auf dem Registrieren!
             </div>
 
             <div class="info-text">
-       
-        <h1>Login-Seite</h1>
+            
+        <h1>Registrieren-Seite</h1>
 
-        <form action="/Login" method="POST">
+        <form method="POST">
             <label for="username">Benutzername:</label><br>
             <input type="text" id="username" name="username" required><br><br>
 
             <label for="password">Passwort:</label><br>
             <input type="password" id="password" name="password" required><br><br>
 
-            <button type="submit">Einloggen</button>
+            <button type="submit">Registrieren</button>
         </form>
 
         {% if error %}
-        <p style="color: red;">{{ error }}</p>
+            <p style="color: red;">{{ error }}</p>
         {% endif %}
 
-            <p>Kein Konto? <a href="/Registrieren">Hier registrieren</a></p>
-
-            <!-- Alternativ ein Button, der zur Registrierung führt -->
-            <button onclick="window.location.href='/Registrieren'">Zur Registrierung</button>
-
-            </div>
+            <p>Bereits ein Konto? <a href="/Login">Hier einloggen</a></p>
 
         </main>
+
         <div class="right-aside">Rechte Sidebar</div>
         <footer>Footer</footer>
+
     </div>
+
 </body>
 </html>

@@ -5,14 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meine Webseite</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='Hauptseite.css') }}">
+
 </head>
 <body>
     <div class="container">
+
         <header>
+        
+        <!-- Wenn man angemeldet ist werden nur 2 buttons angezeigt -->
+        {% if Angemeldet %}
             <button class="nav-button" onclick="window.location.href='/'">Home</button>
             <button class="nav-button" onclick="window.location.href='/Post'">Post</button>
+        {% else %}
+            <button class="nav-button" onclick="window.location.href='/'">Home</button>
+            <button class="nav-button" onclick="window.location.href='/Post'">Post</button>    
             <button class="nav-button" onclick="window.location.href='/Login'">Login</button>
+            <button class="nav-button" onclick="window.location.href='/Registrieren'">Registrieren</button>                 
+        {% endif %}
+
         </header>
+
         <div class="left-aside">Linke Sidebar</div>
         <main>
             <h1>Travel Feed</h1>

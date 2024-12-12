@@ -8,11 +8,22 @@
 </head>
 <body>
     <div class="container">
+
         <header>
+
+        <!-- Wenn man angemeldet ist werden nur 2 buttons angezeigt -->
+        {% if Angemeldet %}
             <button class="nav-button" onclick="window.location.href='/'">Home</button>
             <button class="nav-button" onclick="window.location.href='/Feed'">Feed</button>
+        {% else %}
+            <button class="nav-button" onclick="window.location.href='/'">Home</button>
+            <button class="nav-button" onclick="window.location.href='/Feed'">Feed</button>    
             <button class="nav-button" onclick="window.location.href='/Login'">Login</button>
+            <button class="nav-button" onclick="window.location.href='/Registrieren'">Registrieren</button>
+                    
+        {% endif %}
         </header>
+
         <div class="left-aside">Linke Sidebar</div>
         <main>
             <h1>Post a discovery</h1>
