@@ -5,31 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meine Webseite</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='Hauptseite.css') }}">
-
 </head>
 <body>
     <div class="container">
-
         <header>
-        
-        <!-- Wenn man angemeldet ist werden nur 2 buttons angezeigt -->
-        {% if Angemeldet %}
-            <button class="nav-button" onclick="window.location.href='/'">Home</button>
-            <button class="nav-button" onclick="window.location.href='/Post'">Post</button>
-        {% else %}
-            <button class="nav-button" onclick="window.location.href='/'">Home</button>
-            <button class="nav-button" onclick="window.location.href='/Post'">Post</button>    
-            <button class="nav-button" onclick="window.location.href='/Login'">Login</button>
-            <button class="nav-button" onclick="window.location.href='/Registrieren'">Registrieren</button>                 
-        {% endif %}
-
+            <!-- Navigation buttons depending on whether the user is logged in -->
+            {% if Angemeldet %}
+                <button class="nav-button" onclick="window.location.href='/'">Home</button>
+                <button class="nav-button" onclick="window.location.href='/Post'">Post</button>
+                <button class="nav-button" onclick="window.location.href='/Feed'">Feed</button>
+            {% else %}
+                <button class="nav-button" onclick="window.location.href='/'">Home</button>
+                <button class="nav-button" onclick="window.location.href='/Post'">Post</button>
+                <button class="nav-button" onclick="window.location.href='/Feed'">Feed</button>
+                <button class="nav-button" onclick="window.location.href='/Login'">Login</button>
+                <button class="nav-button" onclick="window.location.href='/Registrieren'">Registrieren</button>
+            {% endif %}
         </header>
 
         <div class="left-aside">Linke Sidebar</div>
         <main>
             <h1>Travel Feed</h1>
 
-    <!-- Post in Feed -->
+            {% if image_url %}
+    <div>
+        <img src="{{ image_url }}" alt="Travel Photo" width="300"><br>
+        <p>Image uploaded successfully!</p>
+        <hr>
+    </div>
+{% elif posts %}
     {% for post in posts %}
         <div>
             <img src="{{ url_for('static', filename='images/' + post.image_file) }}" alt="Travel Photo" width="300"><br>
@@ -37,10 +41,15 @@
             <hr>
         </div>
     {% endfor %}
+{% else %}
+    <p>No posts available.</p>
+{% endif %}
 
-    <a href="/">Go to Post Page</a>
-            </div>
+
+           <a href="{{ url_for('feed') }}">Go to Feed Page</a>
+
         </main>
+
         <div class="right-aside">Rechte Sidebar</div>
         <footer>Footer</footer>
     </div>

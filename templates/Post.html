@@ -10,44 +10,42 @@
     <div class="container">
 
         <header>
-
-        <!-- Wenn man angemeldet ist werden nur 2 buttons angezeigt -->
-        {% if Angemeldet %}
-            <button class="nav-button" onclick="window.location.href='/'">Home</button>
-            <button class="nav-button" onclick="window.location.href='/Feed'">Feed</button>
-        {% else %}
-            <button class="nav-button" onclick="window.location.href='/'">Home</button>
-            <button class="nav-button" onclick="window.location.href='/Feed'">Feed</button>    
-            <button class="nav-button" onclick="window.location.href='/Login'">Login</button>
-            <button class="nav-button" onclick="window.location.href='/Registrieren'">Registrieren</button>
-                    
-        {% endif %}
+            <!-- Navigation buttons depending on whether the user is logged in -->
+            {% if Angemeldet %}
+                <button class="nav-button" onclick="window.location.href='/'">Home</button>
+                <button class="nav-button" onclick="window.location.href='/Feed'">Feed</button>
+            {% else %}
+                <button class="nav-button" onclick="window.location.href='/'">Home</button>
+                <button class="nav-button" onclick="window.location.href='/Feed'">Feed</button>
+                <button class="nav-button" onclick="window.location.href='/Login'">Login</button>
+                <button class="nav-button" onclick="window.location.href='/Registrieren'">Registrieren</button>
+            {% endif %}
         </header>
 
         <div class="left-aside">Linke Sidebar</div>
         <main>
             <h1>Post a discovery</h1>
             <div>
-    <h1>Upload Your Travel Photo</h1>
+                <h1>Upload Your Travel Photo</h1>
 
-    <!-- Form for uploading photos and sub -->
-    <form action="/post" method="POST" enctype="multipart/form-data">
-        <label for="file">Choose an image to upload:</label>
-        <input type="file" name="file" id="file" required><br><br>
+                <!-- Form for uploading photos and description -->
+                <form action="/Post" method="POST" enctype="multipart/form-data">
+                    <label for="file">Choose an image to upload:</label>
+                    <input type="file" name="file" id="file" required><br><br>
 
-        <label for="description">Describe your experience:</label><br>
-        <textarea name="description" id="description" rows="4" cols="50" required></textarea><br><br>
+                    <label for="description">Describe your experience:</label><br>
+                    <textarea name="description" id="description" rows="4" cols="50" required></textarea><br><br>
 
-        <button type="submit">Post</button>
-    </form>
+                    <button type="submit">Post</button>
+                </form>
 
-    <br>
-    <a href="/feed">Go to Feed</a>
-    </div>
+                <br>
+                <a href="/Feed">Go to Feed</a>
+            </div>
         </main>
+
         <div class="right-aside">Rechte Sidebar</div>
         <footer>Footer</footer>
     </div>
-    
 </body>
 </html>

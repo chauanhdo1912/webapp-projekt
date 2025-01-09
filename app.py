@@ -2,7 +2,9 @@ from flask import Flask, render_template, request, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
 import sqlite3
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.utils import secure_filename
 import os
+import uuid
 from functools import wraps
 
 # Diese Funktion erstellt die SQLite-Datenbank und die Tabelle
@@ -10,7 +12,7 @@ def init_db():
     if not os.path.exists('users.db'):
         conn = sqlite3.connect('users.db')  # Diese Zeile erstellt die Datei, wenn sie noch nicht existiert
         cursor = conn.cursor()
-        
+
         # Tabelle erstellen
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS users (
@@ -29,24 +31,30 @@ def init_db():
 init_db()
 
 app = Flask(__name__)
-app.secret_key = 'dein_secret_key' 
+app.secret_key = 'dein_secret_key'
 
-basedir = os.path.abspath(os.path.dirname(__file__))  # Root file
-app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{os.path.join(basedir, "instance", "posts.db")}'
-app.config['UPLOAD_FOLDER'] = 'static/images'  
-app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'} 
+basedir = os.path.abspath(os.path.dirname(__file__))
+app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{os.path.join(basedir, "posts.db")}'
+app.config['UPLOAD_FOLDER'] = 'static/images'
+app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
 db = SQLAlchemy(app)
 
+# Post Model for storing image information in the database
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     image_file = db.Column(db.String(120), nullable=False)
     description = db.Column(db.String(500), nullable=False)
 
     def __repr__(self):
-        return f"Post('{self.image_file}', '{self.description}')"
+        return f"Post('{self.id}', '{self.image_file}', '{self.description}')"
+
+# Ensure the 'static/images' folder exists
+os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
-
+with app.app_context():
+    db.create_all()
 @app.route('/')
 def Home():
     if 'Angemeldet' in session:  # Benutzer ist angemeldet
@@ -57,11 +65,11 @@ def Home():
 def Login():
     if 'Angemeldet' in session:  # Wenn der Benutzer schon eingeloggt ist
         return redirect(url_for('Home'))
-    
+
     if request.method == 'POST':  # Wenn das Formular abgesendet wird
         username = request.form['username']
         password = request.form['password']
-     
+
         conn = sqlite3.connect('users.db')
         cursor = conn.cursor()
         cursor.execute('SELECT password FROM users WHERE username = ?', (username,))
@@ -78,7 +86,7 @@ def Login():
                 return render_template('Login.html', error="Falsches Passwort")  # Fehlermeldung bei falschem Passwort
         else:
             return render_template('Login.html', error="Benutzer nicht gefunden")  # Fehlermeldung bei Benutzer nicht gefunden
-    
+
     return render_template('Login.html')
 
 @app.route('/Registrieren', methods=['GET', 'POST'])
@@ -98,7 +106,7 @@ def Registrieren():
         if existing_user:
             conn.close()
             return render_template('Registrieren.html', error="Benutzername existiert bereits.")
-        
+
         hashed_password = generate_password_hash(password)
         cursor.execute('INSERT INTO users (username, password) VALUES (?, ?)', (username, hashed_password))
         conn.commit()
@@ -127,49 +135,41 @@ def Anmeldung_Benötigt(f):
 def Gesichert():
     return f"Hallo {session.get('username')}, dies ist eine geschützte Seite."
 
-@app.route('/Post')
-def Post_Seite():
-    if 'Angemeldet' in session:  # Benutzer ist angemeldet
-        return render_template('Post.html', Angemeldet=True, username=session.get('username'))
-    return render_template('Post.html', Angemeldet=False)  # Benutzer ist nicht angemeldet
-
-@app.route('/Feed')
-def Feed_Seite():
-    if 'Angemeldet' in session:  # Benutzer ist angemeldet
-        return render_template('Feed.html', Angemeldet=True, username=session.get('username'))
-    return render_template('Feed.html', Angemeldet=False)  # Benutzer ist nicht angemeldet
-
-if __name__ == "__main__":
-    app.run(debug=True)
-
-@app.route('/post', methods=['GET', 'POST'])
+@app.route('/Post', methods=['GET', 'POST'])
 def post():
     if request.method == 'POST':
-        # Check if image file available
         if 'file' not in request.files:
-            print("No file part")
             return redirect(request.url)
         file = request.files['file']
         description = request.form.get('description')
 
-        # if correct
+        # Check if file is valid
         if file and allowed_file(file.filename):
-            filename = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
-            file.save(filename)
+            # Generate unique filename and save the image
+            filename = f"{uuid.uuid4().hex}_{secure_filename(file.filename)}"
+            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file.save(filepath)
 
-            # save in feed
-            new_post = Post(image_file=file.filename, description=description)
+            # Save post in the database
+            new_post = Post(image_file=filename, description=description)
             db.session.add(new_post)
             db.session.commit()
 
-            return redirect(url_for('feed'))  
+            return redirect(url_for('feed', filename=filename))  # Redirect to the Feed page
 
-    return render_template('post.html')  
-if __name__ == "__main__":
-    db.create_all()  
-    app.run(debug=True)  
+    return render_template('Post.html')  # Render the post upload page
 
-@app.route('/feed')
+@app.route('/Feed')
 def feed():
-    posts = Post.query.all()  # take all the available file
-    return render_template('Feed.html', posts=posts)
+    filename = request.args.get('filename')  # Lấy tên file từ URL
+    if filename:
+        # Hiển thị ảnh vừa được tải lên
+        image_url = url_for('static', filename=f'images/{filename}')
+        return render_template('Feed.html', image_url=image_url)  # Trả về trang Feed với URL của ảnh
+    posts = Post.query.order_by(Post.id.desc()).all()
+    return render_template('Feed.html',posts=posts)
+
+
+if __name__ == "__main__":
+    db.create_all()  # Ensure the database and tables are created
+    app.run(debug=True)
