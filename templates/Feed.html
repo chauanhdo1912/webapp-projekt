@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meine Webseite</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='Hauptseite.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='Feed.css') }}">
 </head>
 <body>
     <div class="container">
@@ -19,35 +19,48 @@
                 <button class="nav-button" onclick="window.location.href='/Post'">Post</button>
                 <button class="nav-button" onclick="window.location.href='/Feed'">Feed</button>
                 <button class="nav-button" onclick="window.location.href='/Login'">Login</button>
-                <button class="nav-button" onclick="window.location.href='/Registrieren'">Registrieren</button>
+                <button class="nav-button" onclick="window.location.href='/Registrieren'">Register</button>
             {% endif %}
         </header>
 
         <div class="left-aside">Linke Sidebar</div>
         <main>
             <h1>Travel Feed</h1>
+            <p>😊 Happy</p> 
 
             {% if image_url %}
-    <div>
-        <img src="{{ image_url }}" alt="Travel Photo" width="300"><br>
-        <p>Image uploaded successfully!</p>
-        <hr>
-    </div>
-{% elif posts %}
-    {% for post in posts %}
-        <div>
-            <img src="{{ url_for('static', filename='images/' + post.image_file) }}" alt="Travel Photo" width="300"><br>
-            <p>{{ post.description }}</p>
-            <hr>
-        </div>
-    {% endfor %}
-{% else %}
-    <p>No posts available.</p>
-{% endif %}
+                <div>
+                    <img src="{{ image_url }}" alt="Travel Photo" width="300"><br>
+                    <p>Image uploaded successfully!</p>
+                    <hr>
+                </div>
+            {% elif posts %}
+                {% for post in posts %}
+                    <div class="post">
+                        <!-- Display the travel photo -->
+                        <img src="{{ url_for('static', filename='images/' + post.image_file) }}" alt="Travel Photo" width="300"><br>
+                        
+                        <!-- Display the description of the post -->
+                        <p>{{ post.description }}</p>
+                        
+                        <!-- Display the emotion with emoji -->
+                        <p><strong>Emotion:</strong>
+                            {% if post.emotion == 'Happy' %}
+                                😊 Happy
+                            {% elif post.emotion == 'Adventurous' %}
+                                🌍 Adventurous
+                            {% elif post.emotion == 'Joyful' %}
+                                ❤️ Joyful
+                            {% endif %}
+                        </p>
+                        <hr>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No posts available.</p>
+            {% endif %}
 
-
-           <a href="{{ url_for('feed') }}">Go to Feed Page</a>
-
+            <a href="{{ url_for('feed') }}">Go to Feed Page</a>
         </main>
 
         <div class="right-aside">Rechte Sidebar</div>

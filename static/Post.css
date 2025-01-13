@@ -1,0 +1,134 @@
+.container {
+    font-family: Arial, sans-serif;
+    margin: 0 auto;
+    padding: 0;
+    max-width: 1200px;
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    gap: 20px;
+    background-color: #f4f4f4;
+    min-height: 100vh;
+}
+
+/* Header styles */
+header {
+    grid-column: 1 / 4;
+    background-color: #007bff;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+.nav-button {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px 15px;
+    margin: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #007bff;
+    text-transform: uppercase;
+}
+
+.nav-button:hover {
+    background-color: #0056b3;
+    color: #fff;
+}
+
+/* Sidebars */
+.left-aside, .right-aside {
+    background-color: #f4f4f4;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Main content */
+main {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+    color: #333;
+    text-align: center;
+}
+
+label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+}
+
+/* Form inputs */
+input[type="file"],
+textarea,
+select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+/* Emoji dropdown */
+.select-container {
+    position: relative;
+}
+
+select {
+    appearance: none;
+    background-color: #fff;
+    background-image: url('down-arrow.png');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+}
+
+option[data-icon] {
+    padding-left: 30px;
+    background-repeat: no-repeat;
+    background-size: 20px 20px;
+    background-position: left 5px center;
+}
+
+/* Button */
+button[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Links */
+a {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Footer */
+footer {
+    grid-column: 1 / 4;
+    background-color: #007bff;
+    text-align: center;
+    padding: 10px;
+    color: white;
+}

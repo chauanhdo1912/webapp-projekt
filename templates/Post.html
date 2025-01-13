@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meine Webseite</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='Hauptseite.css') }}">
+    <title>Travel Discovery</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='Post.css') }}">
+
 </head>
 <body>
     <div class="container">
-
         <header>
             <!-- Navigation buttons depending on whether the user is logged in -->
             {% if Angemeldet %}
@@ -18,24 +18,39 @@
                 <button class="nav-button" onclick="window.location.href='/'">Home</button>
                 <button class="nav-button" onclick="window.location.href='/Feed'">Feed</button>
                 <button class="nav-button" onclick="window.location.href='/Login'">Login</button>
-                <button class="nav-button" onclick="window.location.href='/Registrieren'">Registrieren</button>
+                <button class="nav-button" onclick="window.location.href='/Registrieren'">Register</button>
             {% endif %}
         </header>
 
-        <div class="left-aside">Linke Sidebar</div>
+        <div class="left-aside">Left Sidebar</div>
         <main>
-            <h1>Post a discovery</h1>
+            <h1>Share Your Travel Moments</h1>
             <div>
-                <h1>Upload Your Travel Photo</h1>
+                <h2>Upload Your Travel Photo</h2>
 
                 <!-- Form for uploading photos and description -->
                 <form action="/Post" method="POST" enctype="multipart/form-data">
+                    <!-- File Upload -->
                     <label for="file">Choose an image to upload:</label>
                     <input type="file" name="file" id="file" required><br><br>
 
+                    <!-- Description -->
                     <label for="description">Describe your experience:</label><br>
                     <textarea name="description" id="description" rows="4" cols="50" required></textarea><br><br>
 
+                    <!-- Emoji Selection -->
+                    <label for="emotion">I am feeling so:</label>
+                    <div class="select-container">
+                        <select name="emotion" id="emotion" required>
+                            <option value="" disabled selected>Select an emotion</option>
+                            <!-- Use emojis directly in the dropdown -->
+                            <option value="Happy">😊 Happy</option>
+                            <option value="Adventurous">🌍 Adventurous</option>
+                            <option value="Joyful">❤️ Joyful</option>
+                        </select>
+                    </div><br>
+
+                    <!-- Submit Button -->
                     <button type="submit">Post</button>
                 </form>
 
@@ -44,7 +59,7 @@
             </div>
         </main>
 
-        <div class="right-aside">Rechte Sidebar</div>
+        <div class="right-aside">Right Sidebar</div>
         <footer>Footer</footer>
     </div>
 </body>

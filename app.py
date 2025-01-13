@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 import sqlite3
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
@@ -44,9 +45,10 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     image_file = db.Column(db.String(120), nullable=False)
     description = db.Column(db.String(500), nullable=False)
+    emotion = db.Column(db.String(500), nullable=False)
 
     def __repr__(self):
-        return f"Post('{self.id}', '{self.image_file}', '{self.description}')"
+        return f"Post('{self.id}', '{self.image_file}', '{self.description}', '{self.emotion}')"
 
 # Ensure the 'static/images' folder exists
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
@@ -142,6 +144,7 @@ def post():
             return redirect(request.url)
         file = request.files['file']
         description = request.form.get('description')
+        emotion = request.form.get('emotion')
 
         # Check if file is valid
         if file and allowed_file(file.filename):
@@ -151,7 +154,7 @@ def post():
             file.save(filepath)
 
             # Save post in the database
-            new_post = Post(image_file=filename, description=description)
+            new_post = Post(image_file=filename, description=description, emotion=emotion)
             db.session.add(new_post)
             db.session.commit()
 
@@ -166,7 +169,7 @@ def feed():
         # Hiển thị ảnh vừa được tải lên
         image_url = url_for('static', filename=f'images/{filename}')
         return render_template('Feed.html', image_url=image_url)  # Trả về trang Feed với URL của ảnh
-    posts = Post.query.order_by(Post.id.desc()).all()
+    posts = Post.query.all()
     return render_template('Feed.html',posts=posts)
 
 
