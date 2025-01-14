@@ -57,7 +57,6 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
 with app.app_context():
     db.create_all()
-
 @app.route('/')
 def Home():
     if 'Angemeldet' in session:  # Benutzer ist angemeldet
@@ -94,7 +93,7 @@ def Login():
 
 @app.route('/Registrieren', methods=['GET', 'POST'])
 def Registrieren():
-    if 'Angemeldet' in session:  # Wenn der Benutzer bereits angemeldet ist
+    if 'Angemeldet' in session:  # Wenn der Benutzer angemeldet ist
         return redirect(url_for('Home'))
 
     if request.method == 'POST':
@@ -114,17 +113,11 @@ def Registrieren():
         cursor.execute('INSERT INTO users (username, password) VALUES (?, ?)', (username, hashed_password))
         conn.commit()
         conn.close()
-
-        # **Neu hinzugefügt**: Automatisches Einloggen des Benutzers nach der Registrierung
-        session['Angemeldet'] = True  # Benutzer wird als eingeloggt markiert
-        session['username'] = username  # Benutzername wird in der Session gespeichert
-        
-        # **Neu geändert**: Direkt zur Hauptseite weiterleiten
-        return redirect(url_for('Home'))  # Benutzer wird nach der Registrierung direkt auf die Hauptseite weitergeleitet
+        return redirect(url_for('Login'))
 
     return render_template('Registrieren.html')
 
-@app.route('/Logout')
+@app.route('/Abmelden')
 def Abmelden():
     session.pop('Angemeldet', None)
     session.pop('username', None)
@@ -177,7 +170,8 @@ def feed():
         image_url = url_for('static', filename=f'images/{filename}')
         return render_template('Feed.html', image_url=image_url)  # Trả về trang Feed với URL của ảnh
     posts = Post.query.all()
-    return render_template('Feed.html', posts=posts)
+    return render_template('Feed.html',posts=posts)
+
 
 if __name__ == "__main__":
     db.create_all()  # Ensure the database and tables are created
