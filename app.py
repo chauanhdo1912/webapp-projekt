@@ -169,7 +169,7 @@ def feed():
         # Hiển thị ảnh vừa được tải lên
         image_url = url_for('static', filename=f'images/{filename}')
         return render_template('Feed.html', image_url=image_url)  # Trả về trang Feed với URL của ảnh
-    posts = Post.query.all()
+    posts = Post.query.order_by(Post.id.desc()).all()
     return render_template('Feed.html',posts=posts)
 
 
