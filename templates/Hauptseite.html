@@ -12,15 +12,13 @@
 
         <header>
 
-        <!-- Wenn man angemeldet ist werden nur diese buttons angezeigt -->        
+        <!-- Wenn man angemeldet ist werden nur 2 buttons angezeigt -->        
         {% if Angemeldet %}
             <button class="nav-button" onclick="window.location.href='/Post'">Post</button>
             <button class="nav-button" onclick="window.location.href='/Feed'">Feed</button>
-            <button class="nav-button" onclick="window.location.href='/Logout'">Logout</button>
-            <button class="nav-button" onclick="window.location.href='/Profil'">Profil</button>
-
         {% else %}
-             
+            <button class="nav-button" onclick="window.location.href='/Post'">Post</button>
+            <button class="nav-button" onclick="window.location.href='/Feed'">Feed</button>    
             <button class="nav-button" onclick="window.location.href='/Login'">Login</button> 
             <button class="nav-button" onclick="window.location.href='/Registrieren'">Registrieren</button>         
         {% endif %}
@@ -34,9 +32,12 @@
         <div class="info-text">
             {% if Angemeldet %}
                 <h2>Willkommen, {{ username }}!</h2>
+                <button onclick="window.location.href='/Abmelden'">Abmelden</button>
             {% else %}
                 <h2>Willkommen auf der Entdeckungsreise!</h2>
                 <p>Um Momente festzuhalten, melde dich an oder registriere dich.</p>
+                <button onclick="window.location.href='/Login'">Login</button>
+                <button onclick="window.location.href='/Registrieren'">Registrieren</button>              
             {% endif %}
         </div>
 
