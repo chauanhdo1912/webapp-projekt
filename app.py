@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
+from flask_migrate import Migrate
 import os
 import uuid
 
@@ -15,6 +16,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{os.path.join(basedir, "user
 app.config['UPLOAD_FOLDER'] = 'static/images'
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
 # User-Datenbankmodell
 class User(db.Model):
@@ -33,6 +35,8 @@ class Post(db.Model):
     image_file = db.Column(db.String(120), nullable=False)
     description = db.Column(db.String(500), nullable=False)
     emotion = db.Column(db.String(500), nullable=False)
+    latitude = db.Column(db.Float, nullable=True)  
+    longitude = db.Column(db.Float, nullable=True) 
 
 # Erstelle die Datenbank, falls sie nicht existiert
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
@@ -108,13 +112,20 @@ def post():
         file = request.files.get('file')
         description = request.form.get('description')
         emotion = request.form.get('emotion')
+        latitude = request.form.get('latitude')  
+        longitude = request.form.get('longitude')
+        if latitude == '':
+            latitude = None
+        if longitude == '':
+            longitude = None
 
         if file and allowed_file(file.filename):
             filename = f"{uuid.uuid4().hex}_{secure_filename(file.filename)}"
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(filepath)
 
-            new_post = Post(image_file=filename, description=description, emotion=emotion)
+            new_post = Post(image_file=filename, description=description, emotion=emotion, latitude=latitude,
+                longitude=longitude)
             db.session.add(new_post)
             db.session.commit()
 

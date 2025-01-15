@@ -3,13 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meine Webseite</title>
+    <title>Travel Feed</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='Feed.css') }}">
+    <!-- Leaflet CSS für die Karte -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        /* Stil für die Karte */
+        #map {
+            height: 400px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <!-- Navigation buttons depending on whether the user is logged in -->
+            <!-- Navigation basierend auf dem Anmeldestatus -->
             {% if Angemeldet %}
                 <button class="nav-button" onclick="window.location.href='/'">Home</button>
                 <button class="nav-button" onclick="window.location.href='/Post'">Post</button>
@@ -21,30 +32,29 @@
                 <button class="nav-button" onclick="window.location.href='/Feed'">Feed</button>
                 <button class="nav-button" onclick="window.location.href='/Login'">Login</button>
                 <button class="nav-button" onclick="window.location.href='/Registrieren'">Register</button>
-            {% endif %}ç
+            {% endif %}
         </header>
 
         <div class="left-aside">Linke Sidebar</div>
         <main>
             <h1>Travel Feed</h1>
-            <p>😊 Happy</p> 
 
-            {% if image_url %}
-                <div>
-                    <img src="{{ image_url }}" alt="Travel Photo" width="300"><br>
-                    <p>Image uploaded successfully!</p>
-                    <hr>
-                </div>
-            {% elif posts %}
+            <!-- Bereich für die Karte -->
+            <h2>Beiträge auf der Karte</h2>
+            <div id="map"></div>
+
+            <!-- Liste der Beiträge -->
+            <h2>Beiträge</h2>
+            {% if posts %}
                 {% for post in posts %}
                     <div class="post">
-                        <!-- Display the travel photo -->
+                        <!-- Zeigt das hochgeladene Bild -->
                         <img src="{{ url_for('static', filename='images/' + post.image_file) }}" alt="Travel Photo" width="300"><br>
                         
-                        <!-- Display the description of the post -->
+                        <!-- Beschreibung des Beitrags -->
                         <p>{{ post.description }}</p>
                         
-                        <!-- Display the emotion with emoji -->
+                        <!-- Emotion des Beitrags -->
                         <p><strong>Emotion:</strong>
                             {% if post.emotion == 'Happy' %}
                                 😊 Happy
@@ -54,18 +64,48 @@
                                 ❤️ Joyful
                             {% endif %}
                         </p>
+                        
+                        <!-- Standortdetails -->
+                        {% if post.latitude and post.longitude %}
+                            <p><strong>Standort:</strong> {{ post.latitude }}, {{ post.longitude }}</p>
+                        {% else %}
+                            <p><strong>Standort:</strong> Nicht angegeben</p>
+                        {% endif %}
                         <hr>
                     </div>
                 {% endfor %}
             {% else %}
-                <p>No posts available.</p>
+                <p>Keine Beiträge verfügbar.</p>
             {% endif %}
-
-            <a href="{{ url_for('feed') }}">Go to Feed Page</a>
         </main>
 
         <div class="right-aside">Rechte Sidebar</div>
         <footer>Footer</footer>
     </div>
+
+    <!-- Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        // Initialisiere die Karte
+        var map = L.map('map').setView([52.5200, 13.4050], 5); // Standardansicht: Europa
+
+        // OpenStreetMap-Tiles hinzufügen
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Marker für Beiträge hinzufügen
+        {% for post in posts %}
+            {% if post.latitude and post.longitude %}
+                L.marker([{{ post.latitude }}, {{ post.longitude }}])
+                    .addTo(map)
+                    .bindPopup(`
+                        <strong>Beschreibung:</strong> {{ post.description }}<br>
+                        <strong>Emotion:</strong> {{ post.emotion }}<br>
+                        <img src="{{ url_for('static', filename='images/' + post.image_file) }}" alt="Photo" style="width:100px; height:auto;">
+                    `);
+            {% endif %}
+        {% endfor %}
+    </script>
 </body>
 </html>

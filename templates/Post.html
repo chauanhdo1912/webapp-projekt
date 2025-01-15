@@ -5,7 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Travel Discovery</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='Post.css') }}">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
 
+    <style>
+        #map {
+            height: 400px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -49,6 +59,12 @@
                             <option value="Joyful">❤️ Joyful</option>
                         </select>
                     </div><br>
+                    <h3>Choose your location:</h3>
+                    <div id="map"></div>
+
+                    <!-- Hidden fields to store selected latitude and longitude -->
+                    <input type="hidden" name="latitude" id="latitude">
+                    <input type="hidden" name="longitude" id="longitude">
 
                     <!-- Submit Button -->
                     <button type="submit">Post</button>
@@ -62,5 +78,71 @@
         <div class="right-aside">Right Sidebar</div>
         <footer>Footer</footer>
     </div>
+    <!-- Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        // Initialisiere die Karte mit dem Mittelpunkt von Berlin
+        var map = L.map('map').setView([52.5200, 13.4050], 13);  // Zentrum von Berlin
+
+        // Füge OpenStreetMap-Kartenkacheln hinzu
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap-Mitwirkende'
+        }).addTo(map);
+
+        // Koordinaten des Zentrums von Berlin und der Radius des Kreises (ca. 10 km)
+        var berlinCenter = [52.5200, 13.4050];
+        var berlinRadius = 10000; // Radius von 10 km
+
+        // Erstelle einen Kreis (Kreis) um Berlin
+        var berlinCircle = L.circle(berlinCenter, {
+            color: 'red',           // Rote Umrandung
+            weight: 3,              // Umrandungsstärke
+            fillColor: 'red',       // Transparenter Füllbereich
+            fillOpacity: 0.1,       // Transparenz des Füllbereichs
+            radius: berlinRadius    // Radius des Kreises (10 km)
+        }).addTo(map);
+
+        // Erstelle eine Schicht, die den Bereich außerhalb von Berlin verdunkelt
+        var outsideBerlin = L.geoJSON(null, {
+            style: function() {
+                return { fillOpacity: 0.3, color: 'grey' };  // Verdunkeln des Außenbereichs mit grauer Farbe
+            }
+        }).addTo(map);
+
+        // Füge eine Schicht hinzu, die außerhalb von Berlin liegt
+        var outsidePolygon = L.circle(berlinCenter, {
+            color: 'transparent',  // Keine Umrandung für den Außenbereich
+            fillColor: 'grey',
+            fillOpacity: 0.3,      // Transparenz des Außenbereichs
+            radius: 200000        // Größerer Radius, um den gesamten Außenbereich zu umfassen
+        }).addTo(map);
+
+        // Begrenze die Karte auf den Bereich innerhalb von Berlin
+        map.setMaxBounds(berlinCircle.getBounds());  // Begrenze den Kartenausschnitt auf den Kreis von Berlin
+
+        // Sperre das Verschieben der Karte außerhalb des Berliner Gebiets
+        map.on('drag', function() {
+            map.panInsideBounds(berlinCircle.getBounds());
+        });
+
+        // Erstelle einen Marker an einer Standardposition in Berlin
+        var marker = L.marker([52.5200, 13.4050], { draggable: true }).addTo(map);
+
+        // Definiere die Grenzen für das Ziehen des Markers
+        var markerBounds = berlinCircle.getBounds();  // Holen der Grenzen des Kreises von Berlin
+
+        // Setze die Ziehgrenzen für den Marker
+        marker.setBounds(markerBounds);
+
+        // Aktualisiere die Koordinaten, wenn der Marker gezogen wird
+        marker.on('dragend', function(e) {
+            var latlng = e.target.getLatLng();
+            console.log('Neue Koordinaten des Markers: ', latlng);
+        });
+
+        // Stelle sicher, dass der Kartenbereich an den Berliner Kreis angepasst wird
+        map.fitBounds(berlinCircle.getBounds());
+
+    </script>
 </body>
 </html>
