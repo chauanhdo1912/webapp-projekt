@@ -5,63 +5,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meine Webseite</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='Hauptseite.css') }}">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
+    <video autoplay muted loop id="background-video">
+        <source src="{{ url_for('static', filename='videos/background.mp4') }}" type="video/mp4">
+        Dein Browser unterstützt dieses Videoformat nicht.
+    </video>
 
-        <header>
+    <div class="container-fluid p-0">
 
-        <!-- Wenn man angemeldet ist werden nur diese buttons angezeigt -->        
-        {% if Angemeldet %}
-            <button class="nav-button" onclick="window.location.href='/Post'">Post</button>
-            <button class="nav-button" onclick="window.location.href='/Feed'">Feed</button>
-            <button class="nav-button" onclick="window.location.href='/Logout'">Logout</button>
-            <button class="nav-button" onclick="window.location.href='/Profil'">Profil</button>
-
-        {% else %}
-             
-            <button class="nav-button" onclick="window.location.href='/Login'">Login</button> 
-            <button class="nav-button" onclick="window.location.href='/Registrieren'">Registrieren</button>         
-        {% endif %}
-
+        <!-- Header -->
+        <header class="bg-primary text-white py-3 px-4 d-flex justify-content-between align-items-center">
+            <h1 class="h3 m-0">Entdeckungsreise</h1>
+            <div>
+                {% if Angemeldet %}
+                    <button class="btn btn-light me-2" onclick="window.location.href='/Post'">Post</button>
+                    <button class="btn btn-light me-2" onclick="window.location.href='/Feed'">Feed</button>
+                    <button class="btn btn-light me-2" onclick="window.location.href='/Profil'">Profil</button>
+                    <button class="btn btn-danger" onclick="window.location.href='/Logout'">Logout</button>
+                {% else %}
+                    <button class="btn btn-light me-2" onclick="window.location.href='/Login'">Login</button>
+                    <button class="btn btn-success" onclick="window.location.href='/Registrieren'">Registrieren</button>
+                {% endif %}
+            </div>
         </header>
 
-        <div class="left-aside">Linke Sidebar</div>
+        <div class="row g-0">
+            <!-- Linke Sidebar -->
+            <aside class="col-md-2 bg-light p-3 border-end">
+                <h5>Linke Sidebar</h5>
+                <p>Hier könnten Links oder Informationen stehen.</p>
+            </aside>
 
-        <main>
+            <!-- Hauptinhalt -->
+            <main class="col-md-8 p-4">
+                <div class="info-text bg-light p-3 mb-4 rounded shadow">
+                    {% if Angemeldet %}
+                        <h2>Willkommen, {{ username }}!</h2>
+                    {% else %}
+                        <h2>Willkommen auf der Entdeckungsreise!</h2>
+                        <p>Um Momente festzuhalten, melde dich an oder registriere dich.</p>
+                    {% endif %}
+                </div>
 
-        <div class="info-text">
-            {% if Angemeldet %}
-                <h2>Willkommen, {{ username }}!</h2>
-            {% else %}
-                <h2>Willkommen auf der Entdeckungsreise!</h2>
-                <p>Um Momente festzuhalten, melde dich an oder registriere dich.</p>
-            {% endif %}
+                <h1 class="mb-4">Entdeckungsreise</h1>
+                <div class="info-text bg-light p-3 mb-4 rounded shadow">
+                    <h2>Momente festhalten</h2>
+                    <p>Teile deine besonderen Erlebnisse in Berlin mit der Community!</p>
+                    <p>Lade Fotos deiner Entdeckungen hoch – ob versteckte Hinterhöfe, Street Art, besondere Cafés oder magische Sonnenuntergänge an der Spree.</p>
+                </div>
+                <div class="info-text bg-light p-3 mb-4 rounded shadow">
+                    <h2>Geolocation aktivieren</h2>
+                    <p>Füge den genauen Ort hinzu, an dem du deinen Moment erlebt hast.</p>
+                    <p>So können andere Reisende deine Inspiration auf ihrer eigenen Tour durch Berlin entdecken.</p>
+                </div>
+                <div class="info-text bg-light p-3 rounded shadow">
+                    <h2>Hashtags setzen</h2>
+                    <p>Markiere deine Einträge mit passenden Hashtags, die dein Erlebnis beschreiben.</p>
+                    <p>Ob #UrbanVibes, #HiddenGems oder #BerlinFoodies – deine Tags helfen Gleichgesinnten, deine Highlights zu finden.</p>
+                </div>
+            </main>
+
+            <!-- Rechte Sidebar -->
+            <aside class="col-md-2 bg-light p-3 border-start">
+                <h5>Aktuelles Wetter in Berlin</h5>
+                <p>Temperatur: 14°C</p>
+                <p>Wetter: Bewölkt</p>
+                
+                <h5>Veranstaltungen</h5>
+                <ul class="list-unstyled">
+                <li><a href="/Event1" class="text-decoration-none">Street Food Festival</a></li>
+                <li><a href="/Event2" class="text-decoration-none">Berlin Art Week</a></li>
+    </ul>
+            </aside>
         </div>
 
-            <h1>Entdeckungsreise</h1>
-            <div class="info-text">
-                <h2>  Momente festhalten</h2>
-                Teile deine besonderen Erlebnisse in Berlin mit der Community! 
-                <br>
-                Lade Fotos deiner Entdeckungen hoch – ob versteckte Hinterhöfe, Street Art, besondere Cafés oder magische Sonnenuntergänge an der Spree.
-            </div>
-            <div class="info-text">
-            <h2> Geolocation aktivieren</h2>
-                Füge den genauen Ort hinzu, an dem du deinen Moment erlebt hast. 
-                <br>
-                So können andere Reisende deine Inspiration auf ihrer eigenen Tour durch Berlin entdecken.
-            </div>
-            <div class="info-text">
-            <h2>Hashtags setzen</h2>
-                Markiere deine Einträge mit passenden Hashtags, die dein Erlebnis beschreiben.
-                <br>
-                 Ob #UrbanVibes, #HiddenGems oder #BerlinFoodies – deine Tags helfen Gleichgesinnten, deine Highlights zu finden.
-            </div>        
-        </main>
-        <div class="right-aside">Rechte Sidebar</div>
-        <footer>Footer</footer>
+        <!-- Footer -->
+        <footer class="bg-dark text-white text-center py-3">
+            &copy; 2025 Entdeckungsreise. Alle Rechte vorbehalten.
+        </footer>
     </div>
 </body>
 </html>
