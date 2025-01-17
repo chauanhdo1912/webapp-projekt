@@ -20,7 +20,6 @@
 <body>
     <div class="container">
         <header>
-            <!-- Navigation basierend auf dem Anmeldestatus -->
             {% if Angemeldet %}
                 <button class="nav-button" onclick="window.location.href='/'">Home</button>
                 <button class="nav-button" onclick="window.location.href='/Post'">Post</button>
@@ -29,8 +28,8 @@
             {% else %}
                 <button class="nav-button" onclick="window.location.href='/'">Home</button>
                 <button class="nav-button" onclick="window.location.href='/Post'">Post</button>
-                <button class="btn btn-light me-2" onclick="window.location.href='/Profil'">Profil</button>
-                <button class="btn btn-danger" onclick="window.location.href='/Logout'">Logout</button>
+                <button class="nav-button" onclick="window.location.href='/Profil'">Profil</button>
+                <button class="nav-button" onclick="window.location.href='/Logout'">Logout</button>
             {% endif %}
         </header>
 
@@ -93,18 +92,30 @@
             attribution: '© OpenStreetMap contributors'
         }).addTo(map);
 
-        // Marker für Beiträge hinzufügen
-        {% for post in posts %}
-            {% if post.latitude and post.longitude %}
-                L.marker([{{ post.latitude }}, {{ post.longitude }}])
-                    .addTo(map)
-                    .bindPopup(`
-                        <strong>Beschreibung:</strong> {{ post.description }}<br>
-                        <strong>Emotion:</strong> {{ post.emotion }}<br>
-                        <img src="{{ url_for('static', filename='images/' + post.image_file) }}" alt="Photo" style="width:100px; height:auto;">
-                    `);
-            {% endif %}
-        {% endfor %}
+        // Daten von Posts anzeigen
+        var posts = [
+            {% for post in posts %}
+                {% if post.latitude and post.longitude %}
+                    {
+                        lat: {{ post.latitude }},
+                        lng: {{ post.longitude }},
+                        description: "{{ post.description|e }}",
+                        emotion: "{{ post.emotion|e }}",
+                        image: "{{ url_for('static', filename='images/' + post.image_file) }}"
+                    },
+                {% endif %}
+            {% endfor %}
+        ];
+
+        // Marker für jedes Post hinzufügen
+        posts.forEach(function(post) {
+            var marker = L.marker([post.lat, post.lng]).addTo(map);
+            marker.bindPopup(`
+                <strong>Beschreibung:</strong> ${post.description}<br>
+                <strong>Emotion:</strong> ${post.emotion}<br>
+                <img src="${post.image}" alt="Photo" style="width:100px; height:auto;">
+            `);
+        });
     </script>
 </body>
 </html>
