@@ -13,18 +13,18 @@
 /* Hauptcontainer */
 .container {
     display: grid;
-    grid-template-rows: 80px auto 1fr auto 50px;
-    grid-template-columns: 1fr 4fr 1fr;
+    grid-template-rows: 80px auto 1fr auto 50px;  /* Definiert die Reihen */
+    grid-template-columns: 1fr 4fr 1fr;  /* Definiert die Spalten */
     grid-template-areas: 
         "header header header" 
         "left-aside main right-aside" 
         "left-aside main right-aside" 
         "left-aside main right-aside" 
-        "footer footer footer";
-    height: 100vh;
-    gap: 10px;
-    padding: 10px;
-    color: #fff;
+        "footer footer footer";  /* Definiert den Bereichsaufbau */
+    height: 100vh;  /* Die gesamte Höhe des Viewports */
+    gap: 10px;  /* Abstand zwischen den Bereichen */
+    padding: 10px;  /* Innenabstand für das Container-Element */
+    color: #fff;  /* Textfarbe */
 }
 
 /* Header */
@@ -71,7 +71,7 @@
 /* Linke Sidebar */
 .left-aside {
     grid-area: left-aside;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0.8);
     padding: 15px;
     border-radius: 8px;
     color: #000;
@@ -94,7 +94,7 @@
 /* Rechte Sidebar */
 .right-aside {
     grid-area: right-aside;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0.8);
     color: #000;
     padding: 15px;
     border-radius: 8px;
@@ -102,7 +102,7 @@
 
 /* Info-Karten */
 .info-card {
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0.77);
     color: #000;
     padding: 20px;
     margin-bottom: 20px;
