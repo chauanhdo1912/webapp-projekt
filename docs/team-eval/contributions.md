@@ -5,7 +5,7 @@ nav_order: 4
 ---
 
 {: .label }
-[Jane Dane]
+[Chau Anh Do]
 
 {: .no_toc }
 # Summary of individual contributions
@@ -17,14 +17,15 @@ nav_order: 4
 {: toc }
 </details>
 
-## [Jane Dane]
+## [Chau Anh Do]
 
 Contributions
-: Lorem ipsum dolor
-: Consetetur sadipscing elitr
-: ...
+- Website developing.
+- Datenbanken erstellen.
+- Code for the main functions like: Photos uploading, Emojis hinzufügen, Feed-Page erstellen.
+- verantwortlich for the ideas and the process to bring it to real life.
 
-## [Joe Doe]
+## [Yasin Cherif]
 
 Contributions
 : Diam nonumy eirmod
