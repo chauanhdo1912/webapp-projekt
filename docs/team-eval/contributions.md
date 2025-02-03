@@ -17,7 +17,13 @@ nav_order: 4
 {: toc }
 </details>
 
+<<<<<<< HEAD
 ## [Chau Anh Do]
+=======
+Jeder von uns hat seinen Beitrag zur Internetseite geleistet. Einer hat sich stärker um das Design und die Benutzerfreundlichkeit gekümmert, während der andere mehr für die technische Umsetzung verantwortlich war. Trotzdem haben wir uns regelmäßig abgestimmt und auch an den Aufgaben des jeweils anderen mitgewirkt. Durch diese enge Zusammenarbeit konnten wir eine Plattform schaffen, auf der Nutzer ihre Fotos teilen und sich austauschen können. Wir haben viel voneinander gelernt und gemerkt, wie wichtig es ist, sich gegenseitig zu unterstützen und gemeinsam Lösungen zu finden.
+
+## [Jane Dane]
+>>>>>>> 931de87 (Dokumentaation)
 
 Contributions
 - Website developing.

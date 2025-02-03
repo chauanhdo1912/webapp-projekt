@@ -21,7 +21,7 @@ Matr.-Nr.
 ### [Yasin Cherif]
 
 About
-: Some info about Yasin
+: Ich bin Yazin Cherif und studiere derzeit im 5. Semester Wirtschaftsinformatik. Neben meinem Studium ist Sport ein wichtiger Teil meines Alltags. Ich lege Wert auf einen aktiven und ausgeglichenen Lebensstil und genieße das Leben in vollen Zügen – immer offen für neue Erfahrungen und Möglichkeiten.
 
 Matr.-Nr.
 : 77211973042
