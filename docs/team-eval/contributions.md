@@ -13,11 +13,7 @@ nav_order: 4
 <details open markdown="block">
 {: .text-delta }
 <summary>Table of contents</summary>
-+ ToC
-{: toc }
-</details>
 
-<<<<<<< HEAD
 ## [Chau Anh Do]
 
 Contributions
@@ -29,3 +25,8 @@ Contributions
 ## [Yasin Cherif]
 
 Jeder von uns hat seinen Beitrag zur Internetseite geleistet. Einer hat sich stärker um das Design und die Benutzerfreundlichkeit gekümmert, während der andere mehr für die technische Umsetzung verantwortlich war. Trotzdem haben wir uns regelmäßig abgestimmt und auch an den Aufgaben des jeweils anderen mitgewirkt. Durch diese enge Zusammenarbeit konnten wir eine Plattform schaffen, auf der Nutzer ihre Fotos teilen und sich austauschen können. Wir haben viel voneinander gelernt und gemerkt, wie wichtig es ist, sich gegenseitig zu unterstützen und gemeinsam Lösungen zu finden.
+
+
++ ToC
+{: toc }
+</details>
