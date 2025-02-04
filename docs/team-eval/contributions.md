@@ -24,8 +24,12 @@ Contributions
 
 ## [Yasin Cherif]
 
-Jeder von uns hat seinen Beitrag zur Internetseite geleistet. Einer hat sich stärker um das Design und die Benutzerfreundlichkeit gekümmert, während der andere mehr für die technische Umsetzung verantwortlich war. Trotzdem haben wir uns regelmäßig abgestimmt und auch an den Aufgaben des jeweils anderen mitgewirkt. Durch diese enge Zusammenarbeit konnten wir eine Plattform schaffen, auf der Nutzer ihre Fotos teilen und sich austauschen können. Wir haben viel voneinander gelernt und gemerkt, wie wichtig es ist, sich gegenseitig zu unterstützen und gemeinsam Lösungen zu finden.
-
+Contributions
+- Login und Registrierung.
+- Profil-Seite die Speicherung der Daten
+- Grundaufbau der CSS-Datei, die für alle Seiten genutzt wurde
+- Unterstützung bei der Umsetzung von der Idee bis zum Prozess
+- Immer eine Hilfe zu sein, wo geholfen werden muss
 
 + ToC
 {: toc }
