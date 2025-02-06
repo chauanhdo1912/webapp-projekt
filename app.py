@@ -102,9 +102,34 @@ def logout():
 
 @app.route('/Profil', methods=['GET', 'POST'])
 def profile():
-    if 'Angemeldet' in session:
-        return render_template('Profil.html', Angemeldet=True, username=session.get('username'))
-    return render_template('Hauptseite.html', Angemeldet=False)
+    if 'Angemeldet' not in session:
+        return redirect(url_for('login'))
+
+    user = User.query.filter_by(username=session['username']).first()
+
+    if request.method == 'POST':
+        user.gender = request.form.get('gender')
+        user.age = request.form.get('age')
+        user.email = request.form.get('email')
+        
+        file = request.files.get('profile_picture')
+        if file and allowed_file(file.filename):
+            filename = f"{uuid.uuid4().hex}_{secure_filename(file.filename)}"
+            filepath = os.path.join('static/Profilbild', filename)
+
+            if user.profile_picture:
+                old_filepath = os.path.join('static/Profilbild', user.profile_picture)
+                if os.path.exists(old_filepath):
+                    os.remove(old_filepath)
+
+            file.save(filepath)
+            user.profile_picture = filename 
+
+        db.session.commit() 
+
+        return redirect(url_for('profile'))
+
+    return render_template('Profil.html', user=user)
 
 @app.route('/Post', methods=['GET', 'POST'])
 def post():
