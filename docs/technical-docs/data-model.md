@@ -48,7 +48,7 @@ Das Post-Modell speichert alle wesentlichen Informationen zu einem Beitrag, eins
 
 ### **SQLAlchemy-Definition für das Post-Modell**
 
-```md
+
 <details>
   <summary>📌 Klicken, um den Code zu sehen</summary>
 
