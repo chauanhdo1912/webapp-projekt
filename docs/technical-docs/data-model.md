@@ -52,18 +52,15 @@ Das Post-Modell speichert alle wesentlichen Informationen zu einem Beitrag, eins
 <details>
   <summary>📌 Klicken, um den Code zu sehen</summary>
 
-```python
-class Post(db.Model): 
-    id = db.Column(db.Integer, primary_key=True)
-    image_file = db.Column(db.String(120), nullable=False)
-    description = db.Column(db.String(500), nullable=False)
-    emotion = db.Column(db.String(500), nullable=False)
-    latitude = db.Column(db.Float, nullable=True)  
-    longitude = db.Column(db.Float, nullable=True)
-
-    def __repr__(self):
-        return f"Post('{self.image_file}', '{self.description}', '{self.emotion}')"
-
+{
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print(\"Hello, World\")"
+   ]
+  },
 
 ## **3. Nutzer-Modell (zukünftige Implementierung)**
 
