@@ -27,13 +27,13 @@ nav_order: 2
 
 ## **1. Überblick**
 
-Die Anwendung verwendet SQLite als Datenbank mit SQLAlchemy als ORM (Object Relational Mapper). Das derzeit implementierte Modell speichert Informationen über Beiträge (Posts), einschließlich hochgeladener Bilder und Beschreibungen. Die Datenbankstruktur ist modular aufgebaut und kann erweitert werden, um zusätzliche Funktionen wie Nutzerkonten oder Interaktionen zu unterstützen.
+Die Anwendung verwendet SQLite als Datenbank mit SQLAlchemy als ORM (Object Relational Mapper). Das derzeit implementierte Modell speichert Informationen über Beiträge (Posts) und Benutzer (User). Die Datenbankstruktur ist modular aufgebaut und kann erweitert werden, um zusätzliche Funktionen wie Nutzerkonten oder Interaktionen zu unterstützen.
 
 ---
 
 ## **2. Post-Modell**
 
-Das **`Post`-Modell** ist das zentrale Modell der Anwendung und speichert alle wichtigen Informationen zu einem Beitrag.
+Das Post-Modell speichert alle wesentlichen Informationen zu einem Beitrag, einschließlich Bilddatei, Beschreibung, Emotionen und Standortinformationen.
 
 ### **Tabellenstruktur**
 
@@ -42,16 +42,24 @@ Das **`Post`-Modell** ist das zentrale Modell der Anwendung und speichert alle w
 | `id`            | Integer         | Eindeutige Identifikation des Beitrags.     | Primärschlüssel, Auto-Inkrement |
 | `image_file`    | String (120)    | Dateiname des hochgeladenen Bildes.         | Nicht null                   |
 | `description`   | String (500)    | Beschreibung oder Text des Beitrags.        | Nicht null                   |
+| `emotion`       | String (500)    | Emotionale Beschreibung des Moments.        | Nicht null                   |
+| `latitude`      | Float           | Breitengrad des Standorts.                  | Kann null sein               |
+| `longitude`     | Float           | Längengrad des Standorts.                   | Kann null sein               |
 
-### **SQLAlchemy-Definition**
+### **SQLAlchemy-Definition für das Post-Modell**
+
 ```python
-class Post(db.Model):
+class Post(db.Model): 
     id = db.Column(db.Integer, primary_key=True)
     image_file = db.Column(db.String(120), nullable=False)
     description = db.Column(db.String(500), nullable=False)
+    emotion = db.Column(db.String(500), nullable=False)
+    latitude = db.Column(db.Float, nullable=True)  
+    longitude = db.Column(db.Float, nullable=True)
 
     def __repr__(self):
-        return f"Post('{self.image_file}', '{self.description}')"
+        return f"Post('{self.image_file}', '{self.description}', '{self.emotion}')"
+
 
 ## **3. Nutzer-Modell (zukünftige Implementierung)**
 
