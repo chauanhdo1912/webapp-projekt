@@ -52,9 +52,7 @@ Das Post-Modell speichert alle wesentlichen Informationen zu einem Beitrag, eins
    "execution_count": null,
    "metadata": {},
    "outputs": [],
-   "source": [
-    "print(\"Hello, World\")"
-   ]
+   "source": ["print(\"Hello, World\")"]
   },
 
 ## **3. Nutzer-Modell (zukünftige Implementierung)**
