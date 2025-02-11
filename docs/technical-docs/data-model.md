@@ -48,12 +48,15 @@ Das Post-Modell speichert alle wesentlichen Informationen zu einem Beitrag, eins
 
 ### **SQLAlchemy-Definition für das Post-Modell**
 {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {},
-   "outputs": [],
-   "source": ["print(\"Hello, World\")"]
-  },
+  "cell_type": "code",
+  "execution_count": null,
+  "metadata": {},
+  "outputs": [],
+  "source": [
+    "print(\"Hello, World\")\n"
+  ]
+}
+
 
 ## **3. Nutzer-Modell (zukünftige Implementierung)**
 
