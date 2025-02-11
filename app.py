@@ -13,10 +13,16 @@ app.secret_key = 'dein_secret_key'
 # Datenbank-Konfiguration
 basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{os.path.join(basedir, "users.db")}'
-app.config['UPLOAD_FOLDER'] = 'static/images'
+app.config['UPLOAD_FOLDER'] = 'static/Profilbild'
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
+
+# Sicherstellen, dass der Upload-Ordner existiert
+os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+
+# Standard-Profilbild Name
+DEFAULT_PROFILE_PICTURE = "Standartprofilbild.png"
 
 # User-Datenbankmodell
 class User(db.Model):
@@ -26,7 +32,7 @@ class User(db.Model):
     gender = db.Column(db.String(50))
     age = db.Column(db.Integer)
     email = db.Column(db.String(150))
-    profile_picture = db.Column(db.String(150))
+    profile_picture = db.Column(db.String(150), default=DEFAULT_PROFILE_PICTURE)
     is_profile_complete = db.Column(db.Boolean, default=False)
 
 # Post-Datenbankmodell
@@ -39,7 +45,6 @@ class Post(db.Model):
     longitude = db.Column(db.Float, nullable=True) 
 
 # Erstelle die Datenbank, falls sie nicht existiert
-os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 with app.app_context():
     db.create_all()
 
@@ -84,7 +89,7 @@ def register():
             return render_template('Registrieren.html', error="Benutzername existiert bereits")
 
         hashed_password = generate_password_hash(password)
-        new_user = User(username=username, password=hashed_password)
+        new_user = User(username=username, password=hashed_password, profile_picture=DEFAULT_PROFILE_PICTURE)
         db.session.add(new_user)
         db.session.commit()
 
@@ -111,14 +116,15 @@ def profile():
         user.gender = request.form.get('gender')
         user.age = request.form.get('age')
         user.email = request.form.get('email')
-        
+
         file = request.files.get('profile_picture')
         if file and allowed_file(file.filename):
             filename = f"{uuid.uuid4().hex}_{secure_filename(file.filename)}"
-            filepath = os.path.join('static/Profilbild', filename)
+            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
 
-            if user.profile_picture:
-                old_filepath = os.path.join('static/Profilbild', user.profile_picture)
+            # Falls bereits ein Profilbild existiert und nicht das Standardbild ist, löschen
+            if user.profile_picture and user.profile_picture != DEFAULT_PROFILE_PICTURE:
+                old_filepath = os.path.join(app.config['UPLOAD_FOLDER'], user.profile_picture)
                 if os.path.exists(old_filepath):
                     os.remove(old_filepath)
 
@@ -131,6 +137,24 @@ def profile():
 
     return render_template('Profil.html', user=user)
 
+@app.route('/Profil/Löschen', methods=['POST'])
+def delete_profile_picture():
+    if 'Angemeldet' not in session:
+        return redirect(url_for('login'))
+
+    user = User.query.filter_by(username=session['username']).first()
+
+    if user.profile_picture and user.profile_picture != DEFAULT_PROFILE_PICTURE:
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], user.profile_picture)
+        if os.path.exists(file_path):
+            os.remove(file_path)  # Lösche das aktuelle Profilbild
+
+    # Setze das Profilbild auf das Standardbild zurück
+    user.profile_picture = DEFAULT_PROFILE_PICTURE
+    db.session.commit()
+
+    return redirect(url_for('profile'))
+
 @app.route('/Post', methods=['GET', 'POST'])
 def post():
     if request.method == 'POST':
@@ -139,6 +163,7 @@ def post():
         emotion = request.form.get('emotion')
         latitude = request.form.get('latitude')  
         longitude = request.form.get('longitude')
+
         if latitude == '':
             latitude = None
         if longitude == '':
@@ -149,8 +174,7 @@ def post():
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(filepath)
 
-            new_post = Post(image_file=filename, description=description, emotion=emotion, latitude=latitude,
-                longitude=longitude)
+            new_post = Post(image_file=filename, description=description, emotion=emotion, latitude=latitude, longitude=longitude)
             db.session.add(new_post)
             db.session.commit()
 
