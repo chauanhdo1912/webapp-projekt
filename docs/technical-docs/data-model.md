@@ -48,6 +48,7 @@ Das Post-Modell speichert alle wesentlichen Informationen zu einem Beitrag, eins
 
 ### **SQLAlchemy-Definition für das Post-Modell**
 
+```json
 {
   "cell_type": "code",
   "execution_count": null,
