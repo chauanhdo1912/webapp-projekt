@@ -33,18 +33,18 @@ Die Anwendung verwendet SQLite als Datenbank mit SQLAlchemy als ORM (Object Rela
 
 ## **2. Post-Modell**
 
-Das Post-Modell speichert alle wesentlichen Informationen zu einem Beitrag, einschließlich Bilddatei, Beschreibung, Emotionen und Standortinformationen.
+Das **Post-Modell** speichert alle wesentlichen Informationen zu einem Beitrag, einschließlich Bilddatei, Beschreibung, Emotionen und Standortinformationen.
 
 ### **Tabellenstruktur**
 
 | **Feld**        | **Typ**         | **Beschreibung**                             | **Einschränkungen**           |
 |------------------|-----------------|---------------------------------------------|--------------------------------|
-| `id`            | Integer         | Eindeutige Identifikation des Beitrags.     | Primärschlüssel, Auto-Inkrement |
-| `image_file`    | String (120)    | Dateiname des hochgeladenen Bildes.         | Nicht null                   |
-| `description`   | String (500)    | Beschreibung oder Text des Beitrags.        | Nicht null                   |
-| `emotion`       | String (500)    | Emotionale Beschreibung des Moments.        | Nicht null                   |
-| `latitude`      | Float           | Breitengrad des Standorts.                  | Kann null sein               |
-| `longitude`     | Float           | Längengrad des Standorts.                   | Kann null sein               |
+| `id`            | Integer         | Eindeutige Identifikation des Beitrags     | Primärschlüssel, Auto-Inkrement |
+| `image_file`    | String (120)    | Dateiname des hochgeladenen Bildes        | Nicht null                   |
+| `description`   | String (500)    | Beschreibung oder Text des Beitrags        | Nicht null                   |
+| `emotion`       | String (500)    | Emotionale Beschreibung des Moments        | Nicht null                   |
+| `latitude`      | Float           | Breitengrad des Standorts                | Kann null sein               |
+| `longitude`     | Float           | Längengrad des Standorts                   | Kann null sein               |
 
 ### **SQLAlchemy-Definition für das Post-Modell**
 
@@ -62,13 +62,17 @@ class Post(db.Model):
 ``` 
 
 
-## **3. Nutzer-Modell (zukünftige Implementierung)**
+## **3. Nutzer-Modell**
 
-Ein zukünftiges Update könnte ein **User-Modell** einführen, um Nutzerkonten zu verwalten. Dieses Modell könnte folgendermaßen strukturiert sein:
+Das **User-Modell** verwaltet die Benutzerkonten und speichert persönliche Informationen, einschließlich Benutzername, Passwort, Geschlecht, Alter und Profilbild.
 
 | **Feldname**       | **Datentyp**        | **Beschreibung**                                   | **Einschränkungen**               |
 |--------------------|---------------------|--------------------------------------------------|------------------------------------|
-| `id`              | Integer             | Eindeutige ID des Nutzers.                        | Primärschlüssel, Auto-Inkrement    |
-| `username`        | String (80)         | Benutzername des Nutzers.                         | Nicht null, einzigartig           |
-| `email`           | String (120)        | E-Mail-Adresse des Nutzers.                       | Nicht null, einzigartig           |
-| `password_hash`   | String (128)        | Gehashte Version des Passworts zur Sicherheit.    | Nicht null                        |
+| `id`              | Integer             | Eindeutige ID des Nutzers                      | Primärschlüssel, Auto-Inkrement    |
+| `username`        | String (150)        | Eindeutiger Benutzername                        | Nicht null, einzigartig           |
+| `password`        | String (150)        | Passwort des Nutzers (verschlüsselt gespeichert)  | Nicht null         |
+| `gender`          | String (50)         | Geschlecht des Nutzers                          | Optional                    |
+| `age`             | Integer             | Alter des Nutzers                            | Optional        |
+| `email`           | String (150)        | E-Mail-Adresse des Nutzers                         | Optional                    |
+| `profile_picture` | String (150)         | Profilbild des Nutzers                  | Standardwert: DEFAULT_PROFILE_PICTURE                   |
+| `is_profile_complete` | Boolean             | Gibt an, ob das Profil vollständig ist   | Standardwert: False        |
