@@ -47,6 +47,7 @@ Das Post-Modell speichert alle wesentlichen Informationen zu einem Beitrag, eins
 | `longitude`     | Float           | Längengrad des Standorts.                   | Kann null sein               |
 
 ### **SQLAlchemy-Definition für das Post-Modell**
+
 {
   "cell_type": "code",
   "execution_count": null,
