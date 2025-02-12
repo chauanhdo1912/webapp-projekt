@@ -49,15 +49,14 @@ Das Post-Modell speichert alle wesentlichen Informationen zu einem Beitrag, eins
 ### **SQLAlchemy-Definition für das Post-Modell**
 
 ```json
-{
-  "cell_type": "code",
-  "execution_count": null,
-  "metadata": {},
-  "outputs": [],
-  "source": [
-    "print(\"Hello, World\")\n"
-  ]
-}
+class Post(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    image_file = db.Column(db.String(120), nullable=False)
+    description = db.Column(db.String(500), nullable=False)
+    emotion = db.Column(db.String(500), nullable=False)
+    latitude = db.Column(db.Float, nullable=True)  
+    longitude = db.Column(db.Float, nullable=True) 
+
 ``` 
 
 
