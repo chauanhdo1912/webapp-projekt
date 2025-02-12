@@ -69,7 +69,7 @@ Datenquelle: request.form
 
 Datenspeicherung: Tabelle User in der Datenbank
 
-#### 3. Benutzerprofil (/Profil)####
+#### 3. Benutzerprofil (/Profil) ####
 
 Methode: GET, POST
 
@@ -81,7 +81,7 @@ Datenquelle: request.form, request.files
 
 Datenspeicherung: Aktualisierung der User-Tabelle
 
-#### 4. Abmeldung (/Logout)####
+#### 4. Abmeldung (/Logout) ####
 
 Methode: GET
 
@@ -97,7 +97,7 @@ Datenspeicherung: Aktualisierung von profile_picture in der User-Tabelle
 
 ### **Beitragsverwaltung** ###
 
-#### 1. Beitrag erstellen (/Post)####
+#### 1. Beitrag erstellen (/Post) ####
 
 Methode: GET, POST
 
@@ -109,7 +109,7 @@ Datenquelle: request.form, request.files
 
 Datenspeicherung: Tabelle Post in der Datenbank
 
-#### 2. Beiträge anzeigen (/Feed)####
+#### 2. Beiträge anzeigen (/Feed) ####
 
 Methode: GET
 
