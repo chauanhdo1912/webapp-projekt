@@ -58,6 +58,7 @@ Das Post-Modell speichert alle wesentlichen Informationen zu einem Beitrag, eins
     "print(\"Hello, World\")\n"
   ]
 }
+``` 
 
 
 ## **3. Nutzer-Modell (zukünftige Implementierung)**
