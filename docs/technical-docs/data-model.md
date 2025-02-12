@@ -40,10 +40,10 @@ Das **Post-Modell** speichert alle wesentlichen Informationen zu einem Beitrag, 
 | **Feld**        | **Typ**         | **Beschreibung**                             | **Einschränkungen**           |
 |------------------|-----------------|---------------------------------------------|--------------------------------|
 | `id`            | Integer         | Eindeutige Identifikation des Beitrags     | Primärschlüssel, Auto-Inkrement |
-| `image_file`    | String (120)    | Dateiname des hochgeladenen Bildes        | Nicht null                   |
+| `image_file`    | String (120)    | Dateiname des hochgeladenen Bildes         | Nicht null                   |
 | `description`   | String (500)    | Beschreibung oder Text des Beitrags        | Nicht null                   |
 | `emotion`       | String (500)    | Emotionale Beschreibung des Moments        | Nicht null                   |
-| `latitude`      | Float           | Breitengrad des Standorts                | Kann null sein               |
+| `latitude`      | Float           | Breitengrad des Standorts                  | Kann null sein               |
 | `longitude`     | Float           | Längengrad des Standorts                   | Kann null sein               |
 
 ### **SQLAlchemy-Definition für das Post-Modell**
@@ -68,8 +68,8 @@ Das **User-Modell** verwaltet die Benutzerkonten und speichert persönliche Info
 
 | **Feldname**       | **Datentyp**        | **Beschreibung**                                   | **Einschränkungen**               |
 |--------------------|---------------------|--------------------------------------------------|------------------------------------|
-| `id`              | Integer             | Eindeutige ID des Nutzers                      | Primärschlüssel, Auto-Inkrement    |
-| `username`        | String (150)        | Eindeutiger Benutzername                        | Nicht null, einzigartig           |
+| `id`              | Integer             | Eindeutige ID des Nutzers                      | Primärschlüssel, Auto-Inkrement      |
+| `username`        | String (150)        | Eindeutiger Benutzername                        | Nicht null, einzigartig         |
 | `password`        | String (150)        | Passwort des Nutzers (verschlüsselt gespeichert)  | Nicht null         |
 | `gender`          | String (50)         | Geschlecht des Nutzers                          | Optional                    |
 | `age`             | Integer             | Alter des Nutzers                            | Optional        |
