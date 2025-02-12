@@ -45,7 +45,7 @@ Die Daten in der Anwendung funktioniert, indem:
 
 ### **Benutzerverwaltung** ###
 
-## 1. Anmeldung (/Login) ##
+#### 1. Anmeldung (/Login) ####
 
 Methode: GET, POST
 
@@ -57,7 +57,7 @@ Datenquelle: request.form aus dem HTML-Formular
 
 Datenspeicherung: Benutzer-Session wird gespeichert
 
-### 2. Registrierung (/Registrieren) ###
+#### 2. Registrierung (/Registrieren) ####
 
 Methode: GET, POST
 
@@ -69,7 +69,7 @@ Datenquelle: request.form
 
 Datenspeicherung: Tabelle User in der Datenbank
 
-3. Benutzerprofil (/Profil)
+#### 3. Benutzerprofil (/Profil)####
 
 Methode: GET, POST
 
@@ -81,13 +81,13 @@ Datenquelle: request.form, request.files
 
 Datenspeicherung: Aktualisierung der User-Tabelle
 
-4. Abmeldung (/Logout)
+#### 4. Abmeldung (/Logout)####
 
 Methode: GET
 
 Funktion: Löscht die Benutzer-Session
 
-5. Profilbild löschen (/Profil/Löschen)
+#### 5. Profilbild löschen (/Profil/Löschen) ####
 
 Methode: POST
 
@@ -97,7 +97,7 @@ Datenspeicherung: Aktualisierung von profile_picture in der User-Tabelle
 
 ### **Beitragsverwaltung** ###
 
-1. Beitrag erstellen (/Post)##
+#### 1. Beitrag erstellen (/Post)####
 
 Methode: GET, POST
 
@@ -109,7 +109,7 @@ Datenquelle: request.form, request.files
 
 Datenspeicherung: Tabelle Post in der Datenbank
 
-2. Beiträge anzeigen (/Feed)
+#### 2. Beiträge anzeigen (/Feed)####
 
 Methode: GET
 
