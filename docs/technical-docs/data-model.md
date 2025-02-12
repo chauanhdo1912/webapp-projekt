@@ -76,3 +76,22 @@ Das **User-Modell** verwaltet die Benutzerkonten und speichert persönliche Info
 | `email`           | String (150)        | E-Mail-Adresse des Nutzers                         | Optional                    |
 | `profile_picture` | String (150)         | Profilbild des Nutzers                  | Standardwert: DEFAULT_PROFILE_PICTURE                   |
 | `is_profile_complete` | Boolean             | Gibt an, ob das Profil vollständig ist   | Standardwert: False        |
+
+### **SQLAlchemy-Definition für das User-Modell**
+
+```python
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(150), unique=True, nullable=False)
+    password = db.Column(db.String(150), nullable=False)
+    gender = db.Column(db.String(50))
+    age = db.Column(db.Integer)
+    email = db.Column(db.String(150))
+    profile_picture = db.Column(db.String(150), default=DEFAULT_PROFILE_PICTURE)
+    is_profile_complete = db.Column(db.Boolean, default=False)
+    ...
+    new_user = User(username=username, password=hashed_password, profile_picture=DEFAULT_PROFILE_PICTURE)
+
+``` 
+
+Relation zwischen User und Post-Modell
