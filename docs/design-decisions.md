@@ -37,7 +37,7 @@ Unsere Anwendung verwendet eine SQLite-Datenbank für die Speicherung von Benutz
 Wir haben uns für SQLite mit Flask-Migrate entschieden, um Datenbankmigrationen effizient zu verwalten:
 - SQLite bleibt als primäre Datenbank bestehen, solange die Anwendung klein ist
 - Flask-Migrate wird genutzt, um Schemaänderungen zu verwalten
-- Falls Skalierung erforderlich ist, können wir auf eine andere Datenbank umsteigen
+- Falls Skalierung erforderlich ist, können wir auf eine andere Datenbank umsteigen <br>
 *Entscheidung getroffen von:* github.com/chauanhdo1912, github.com/Yasin Cherif
 
 ### Regarded options:
@@ -58,53 +58,106 @@ Wir haben drei Alternativen betrachtet:
 
 ---
 
-## [Example, delete this section] 01: How to access the database - SQL or SQLAlchemy 
+## 02: Formularverarbeitung und Feed-Anzeige
 
 ### Meta
 
 Status
-: Work in progress - **Decided** - Obsolete
+: Work in progress - **Decided**
 
 Updated
-: 30-Jun-2024
+: 14-Jan-2025
 
 ### Problem statement
 
-Should we perform database CRUD (create, read, update, delete) operations by writing plain SQL or by using SQLAlchemy as object-relational mapper?
-
-Our web application is written in Python with Flask and connects to an SQLite database. To complete the current project, this setup is sufficient.
-
-We intend to scale up the application later on, since we see substantial business value in it.
-
-
-
-Therefore, we will likely:
-Therefore, we will likely:
-Therefore, we will likely:
-
-+ Change the database schema multiple times along the way, and
-+ Switch to a more capable database system at some point.
+Benutzer sollen Beiträge über ein HTML-Formular hochladen können, die dann im Feed angezeigt werden. Die Herausforderungen:
++ Wie verarbeiten wir Formulardaten sicher in Flask?
++ Wie speichern wir Bilder und Text korrekt in der Datenbank?
++ Wie werden die Daten im Feed effizient geladen?
 
 ### Decision
 
-We stick with plain SQL.
++ Formularverarbeitung: Flask empfängt Daten mit request.form (Text) und request.files (Bilder)
++ Speicherung: Bilder werden auf dem Server gespeichert, Metadaten in der Post-Tabelle
++ Feed-Anzeige: Beiträge werden per Post.query.order_by(Post.id.desc()).all() geladen <br>
 
-Our team still has to come to grips with various technologies new to us, like Python and CSS. Adding another element to our stack will slow us down at the moment.
+Entscheidung getroffen von: github.com/chauanhdo1912 
 
-Also, it is likely we will completely re-write the app after MVP validation. This will create the opportunity to revise tech choices in roughly 4-6 months from now.
-*Decision was taken by:* github.com/joe, github.com/jane, github.com/maxi
+### Regarded options:
 
-### Regarded options
+Wir haben zwei Alternativen analysiert:
 
-We regarded two alternative options:
+| Kriterium            | Direkte Speicherung in der Datenbank | Speicherung als Datei mit Referenz in der Datenbank |
+|----------------------|-----------------------------------|-------------------------------------------------|
+| **Leicht zu implementieren** | ❌ Schwer (große Binärdateien) | ✔️ Einfach (nur Dateipfad speichern) |
+| **Leistung**          | ❌ Langsam (hoher Speicherverbrauch) | ✔️ Schnell (Dateien direkt im Server abrufen) |
+| **Skalierbarkeit**    | ❌ Nicht effizient für viele Bilder | ✔️ Skalierbar mit CDN oder Cloud-Speicher |
 
-+ Plain SQL
-+ SQLAlchemy
+### Implementierungsdetails:
 
-| Criterion | Plain SQL | SQLAlchemy |
-| --- | --- | --- |
-| **Know-how** | ✔️ We know how to write SQL | ❌ We must learn ORM concept & SQLAlchemy |
-| **Change DB schema** | ❌ SQL scattered across code | ❔ Good: classes, bad: need Alembic on top |
-| **Switch DB engine** | ❌ Different SQL dialect | ✔️ Abstracts away DB engine |
+#### 1. Verarbeitung der Formularübermittlung
 
++ Das HTML-Formular verwendet die POST-Methode und multipart/form-data für den Datei-Upload
++ Das Flask-Backend verarbeitet die Formulardaten mit request.form (Textfelder) und request.files (Bilddatei)
++ Das Bild wird in static/uploads/ mit einem eindeutigen Dateinamen gespeichert
++ Der Dateipfad wird in der Datenbank gespeichert
+
+```python
+@app.route('/Post', methods=['GET', 'POST'])
+def post():
+    if request.method == 'POST':
+        file = request.files.get('file')
+        description = request.form.get('description')
+        emotion = request.form.get('emotion')
+        latitude = request.form.get('latitude')  
+        longitude = request.form.get('longitude')
+
+        if latitude == '':
+            latitude = None
+        if longitude == '':
+            longitude = None
+
+        if file and allowed_file(file.filename):
+            filename = f"{uuid.uuid4().hex}_{secure_filename(file.filename)}"
+            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file.save(filepath)
+
+            new_post = Post(image_file=filename, description=description, emotion=emotion, latitude=latitude, longitude=longitude)
+            db.session.add(new_post)
+            db.session.commit()
+
+            return redirect(url_for('feed'))
+
+    return render_template('Post.html')
+```
+#### 2. Anzeige der Beiträge im Feed
+Die Datenbank wird nach allen Beiträgen abgefragt, geordnet nach Zeitstempel. Jinja2 durchläuft die Beiträge und rendert dynamisch das Bild und die Beschreibung.
+
+```python
+@app.route('/Feed')
+def feed():
+    posts = Post.query.order_by(Post.id.desc()).all()
+    return render_template('Feed.html', posts=posts)
+```
+
+```python
+{% for post in posts %}
+                    <div class="post">
+                        <!-- Zeigt das hochgeladene Bild -->
+                        <img src="{{ url_for('static', filename='images/' + post.image_file) }}" alt="Travel Photo" width="300"><br>
+                        
+                        <!-- Beschreibung des Beitrags -->
+                        <p>{{ post.description }}</p>
+                        
+                        <!-- Emotion des Beitrags -->
+                        <p><strong>Emotion:</strong>
+                            {% if post.emotion == 'Happy' %}
+                                😊 Happy
+                            {% elif post.emotion == 'Adventurous' %}
+                                🌍 Adventurous
+                            {% elif post.emotion == 'Joyful' %}
+                                ❤️ Joyful
+                            {% endif %}
+                        </p>
+```
 ---
