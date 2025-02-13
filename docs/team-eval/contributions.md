@@ -6,6 +6,7 @@ nav_order: 4
 
 {: .label }
 [Chau Anh Do]
+[Yasin Cherif]
 
 {: .no_toc }
 # Summary of individual contributions

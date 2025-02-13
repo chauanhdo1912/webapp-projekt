@@ -4,7 +4,7 @@ nav_order: 3
 ---
 
 {: .label }
-[Jane Dane]
+[Le Chau Anh Do]
 
 {: .no_toc }
 # Design decisions
@@ -16,28 +16,38 @@ nav_order: 3
 {: toc }
 </details>
 
-## 01: [Title]
+## 01: Datenbank - SQLite und Migration
 
 ### Meta
 
 Status
-: **Work in progress** - Decided - Obsolete
+: Work in progress - **Decided**
 
 Updated
-: DD-MMM-YYYY
+: 10-Jan-2025
 
 ### Problem statement
 
-[Describe the problem to be solved or the goal to be achieved. Include relevant context information.]
+Unsere Anwendung verwendet eine SQLite-Datenbank für die Speicherung von Benutzern und Beiträgen. SQLite ist eine einfache und leichtgewichtige Lösung, aber es gibt Herausforderungen:
+- Wir müssen Datenbankänderungen verwalten, wenn sich das Schema ändert.
+- Möglicherweise müssen wir in Zukunft auf ein leistungsfähigeres Datenbankmanagementsystem (DBMS) umsteigen.
 
 ### Decision
 
-[Describe **which** design decision was taken for **what reason** and by **whom**.]
-
+Wir haben uns für SQLite mit Flask-Migrate entschieden, um Datenbankmigrationen effizient zu verwalten:
+- SQLite bleibt als primäre Datenbank bestehen, solange die Anwendung klein ist
+- Flask-Migrate wird genutzt, um Schemaänderungen zu verwalten
+- Falls Skalierung erforderlich ist, können wir auf eine andere Datenbank umsteigen
+*Entscheidung getroffen von:* github.com/chauanhdo1912, github.com/Yasin Cherif
 ### Regarded options
 
-[Describe any possible design decision that will solve the problem. Assess these options, e.g., via a simple pro/con list.]
-
+| Kriterium | Nur SQL Lite | SQLite + Flask-Migrate | MySQL |
+| --- | --- | --- | ---- |
+| **Know-how** | ✔️ Direktes Arbeiten mit SQL | ⚠️ Erfordert Kenntnisse in Flask-Migrate | ⚠️ Hat komplexeren DBMS und SQL-Dialekten|
+| **Schema-Änderungen** | ❌ Manuelle Anpassungen nötig | ✔️ Automatische Migrationen mit Flask-Migrate | ✔️ Bietet leistungsstarke Migrationswerkzeuge|
+| **Skalierbarkeit** | ❌ Nicht ideal für große Anwendungen | ✔️ Kann in begrenztem Maße skaliert werden | ✔️ Hoch skalierbar und geeignet für große Systeme|
+| **Change DB schema** | ❌ SQL ist fest im Code verankert | ✔️ Besser, aber nicht so flexibel wie größere DBMS | ✔️ Gut strukturiert mit ORM-Unterstützung und Tools wie Alembic (database migration)|
+| **Performance** | ⚠️ Gut für kleine Apps, begrenzte Parallelität | ✔️ Verbesserte Verwaltung von Änderungen | ✔️ ✔️ Bessere Leistung bei vielen gleichzeitigen Anfragen|
 ---
 
 ## [Example, delete this section] 01: How to access the database - SQL or SQLAlchemy 
