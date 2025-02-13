@@ -139,16 +139,4 @@ def feed():
     posts = Post.query.order_by(Post.id.desc()).all()
     return render_template('Feed.html', posts=posts)
 ```
-
-```html
-{% for post in posts %}
-                    <div class="post">
-                        <!-- Zeigt das hochgeladene Bild -->
-                        <img src="{{ url_for('static', filename='images/' + post.image_file) }}" alt="Travel Photo" width="300"><br>
-                        
-                        <!-- Beschreibung des Beitrags -->
-                        <p>{{ post.description }}</p>
-                        
-                        
-```
 ---
