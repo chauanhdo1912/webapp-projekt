@@ -39,15 +39,22 @@ Wir haben uns für SQLite mit Flask-Migrate entschieden, um Datenbankmigrationen
 - Flask-Migrate wird genutzt, um Schemaänderungen zu verwalten
 - Falls Skalierung erforderlich ist, können wir auf eine andere Datenbank umsteigen
 *Entscheidung getroffen von:* github.com/chauanhdo1912, github.com/Yasin Cherif
-### Regarded options
+
+### Regarded options:
+
+Wir haben zwei Alternativen betrachtet:
+
++ SQL Lite
++ SQLite + Flask-Migrate
++ MySQL
 
 | Kriterium | Nur SQL Lite | SQLite + Flask-Migrate | MySQL |
-| --- | --- | --- | ---- 
-| **Know-how** | ✔️ Direktes Arbeiten mit SQL | ⚠️ Erfordert Kenntnisse in Flask-Migrate | ⚠️ Hat komplexeren DBMS und SQL-Dialekten
-| **Schema-Änderungen** | ❌ Manuelle Anpassungen nötig | ✔️ Automatische Migrationen mit Flask-Migrate | ✔️ Bietet leistungsstarke Migrationswerkzeuge
-| **Skalierbarkeit** | ❌ Nicht ideal für große Anwendungen | ✔️ Kann in begrenztem Maße skaliert werden | ✔️ Hoch skalierbar und geeignet für große Systeme
-| **Change DB schema** | ❌ SQL ist fest im Code verankert | ✔️ Besser, aber nicht so flexibel wie größere DBMS | ✔️ Gut strukturiert mit ORM-Unterstützung und Tools wie Alembic (database migration)
-| **Performance** | ⚠️ Gut für kleine Apps, begrenzte Parallelität | ✔️ Verbesserte Verwaltung von Änderungen | ✔️ ✔️ Bessere Leistung bei vielen gleichzeitigen Anfragen
+| --- | --- | --- | ---- |
+| **Know-how** | ✔️ Direktes Arbeiten mit SQL | ⚠️ Erfordert Kenntnisse in Flask-Migrate | ⚠️ Hat komplexeren DBMS und SQL-Dialekten|
+| **Schema-Änderungen** | ❌ Manuelle Anpassungen nötig | ✔️ Automatische Migrationen mit Flask-Migrate | ✔️ Bietet leistungsstarke Migrationswerkzeuge|
+| **Skalierbarkeit** | ❌ Nicht ideal für große Anwendungen | ✔️ Kann in begrenztem Maße skaliert werden | ✔️ Hoch skalierbar und geeignet für große Systeme|
+| **Change DB schema** | ❌ SQL ist fest im Code verankert | ✔️ Besser, aber nicht so flexibel wie größere DBMS | ✔️ Gut strukturiert mit ORM-Unterstützung und Tools wie Alembic (database migration)|
+| **Performance** | ⚠️ Gut für kleine Apps, begrenzte Parallelität | ✔️ Verbesserte Verwaltung von Änderungen | ✔️ ✔️ Bessere Leistung bei vielen gleichzeitigen Anfragen|
 ---
 
 ## [Example, delete this section] 01: How to access the database - SQL or SQLAlchemy 
