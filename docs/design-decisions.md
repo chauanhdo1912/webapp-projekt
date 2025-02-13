@@ -149,15 +149,6 @@ def feed():
                         <!-- Beschreibung des Beitrags -->
                         <p>{{ post.description }}</p>
                         
-                        <!-- Emotion des Beitrags -->
-                        <p><strong>Emotion:</strong>
-                            {% if post.emotion == 'Happy' %}
-                                😊 Happy
-                            {% elif post.emotion == 'Adventurous' %}
-                                🌍 Adventurous
-                            {% elif post.emotion == 'Joyful' %}
-                                ❤️ Joyful
-                            {% endif %}
-                        </p>
+                        
 ```
 ---
