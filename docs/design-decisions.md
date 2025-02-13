@@ -140,7 +140,7 @@ def feed():
     return render_template('Feed.html', posts=posts)
 ```
 
-```python
+```html
 {% for post in posts %}
                     <div class="post">
                         <!-- Zeigt das hochgeladene Bild -->
