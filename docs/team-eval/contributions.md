@@ -18,10 +18,10 @@ nav_order: 4
 ## [Chau Anh Do]
 
 Contributions
-- Website developing.
-- Datenbanken erstellen.
-- Code for the main functions like: Photos uploading, Emojis hinzufügen, Feed-Page erstellen.
-- verantwortlich for the ideas and the process to bring it to real life.
+- Entwicklung der Website.
+- Erstellung von Datenbanken.
+- Programmierung der Hauptfunktionen wie Foto-Uploads, Hinzufügen von Emojis und Erstellen der Feed-Seite.
+- Verantwortlich für die Ideenfindung und den Prozess, diese in die Realität umzusetzen.
 
 ## [Yasin Cherif]
 
