@@ -3,12 +3,6 @@ title: UI Components
 nav_order: 99
 ---
 
-{: .label .label-red }
-[to be deleted]
-
-{: .attention}
-> Once you are familiar with the available UI components of this template, exclude this page by changing `nav_order: 99` to `nav_exclude: true` on top of this page (line 3). Its *front matter* will then look like this:
-> ```
 > ---
 > title: UI Components
 > nav_exclude: true
@@ -17,31 +11,19 @@ nav_order: 99
 
 # UI components
 
-The [Just the Docs documentation](https://just-the-docs.github.io/just-the-docs/docs/ui-components) details more UI components.
-
-For a quick reference of the markdown syntax, visit [this page](https://github.com/just-the-docs/just-the-docs/blob/main/docs/index-test.md?plain=1).
-
 ## Images
 
-```markdown
-![get_list_todos_sample](assets/images/fswd-intro_02.png)
-```
-
-![get_list_todos_sample](assets/images/fswd-intro_02.png)
-
-## Callouts
+![get_list_todos_sample](assets/images/home seite.png)
 
 {: .info }
-> This is an info callout.
+> Die Startseite begrüßt den Benutzer mit einem ansprechenden Hintergrundbild. Die Navigation erfolgt über ein seitliches und oberes Menü.
+> - Navigation: Die obere Leiste enthält Schaltflächen für "Login" und "Registrieren" mit gut erkennbaren Symbolen.
+> - Willkommensbereich: Eine klare und prägnante Begrüßung mit einer kurzen Einführung in die Anwendung.
+> - Seitenleiste (rechts): Zeigt aktuelle Wetterinformationen und bevorstehende Events.
+> - Seitenleiste (links): Enthält eine Entdeckungsfunktion mit "Top Locations", "Geheime Orte" und "Empfohlene Touren".
+> * Usability-Analyse:* Die Struktur ist intuitiv, die Navigationselemente sind leicht auffindbar und visuell ansprechend. Der Kontrast zwischen Text und Hintergrund verbessert die Lesbarkeit.
 
-{: .tip }
-> This is a tip callout.
 
-{: .attention }
-> This is an attention callout.
-
-{: .download }
-> This is a download callout.
 
 ## Labels
 
