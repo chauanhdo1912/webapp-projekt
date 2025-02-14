@@ -14,12 +14,14 @@ app.secret_key = 'dein_secret_key'
 basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{os.path.join(basedir, "users.db")}'
 app.config['UPLOAD_FOLDER'] = 'static/Profilbild'
+app.config['POST_IMAGE_FOLDER'] = 'static/images'
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 # Sicherstellen, dass der Upload-Ordner existiert
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+os.makedirs(app.config['POST_IMAGE_FOLDER'], exist_ok=True)
 
 # Standard-Profilbild Name
 DEFAULT_PROFILE_PICTURE = "Standartprofilbild.png"
@@ -171,7 +173,7 @@ def post():
 
         if file and allowed_file(file.filename):
             filename = f"{uuid.uuid4().hex}_{secure_filename(file.filename)}"
-            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            filepath = os.path.join(app.config['POST_IMAGE_FOLDER'], filename)
             file.save(filepath)
 
             new_post = Post(image_file=filename, description=description, emotion=emotion, latitude=latitude, longitude=longitude)
