@@ -189,5 +189,6 @@ def feed():
     posts = Post.query.order_by(Post.id.desc()).all()
     return render_template('Feed.html', posts=posts)
 
+
 if __name__ == "__main__":
     app.run(debug=True)
