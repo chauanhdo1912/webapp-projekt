@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <div class="card shadow-sm p-4">
+        <h2 class="mb-3">My Profile</h2>
+        <hr>
+        <div class="row">
+            <div class="col-md-4 text-center">
+                <div class="bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center mb-3" style="width: 100px;height: 100px; font-size: 40px;">
+                    {{current_user.username[0]|upper}}
+                </div>
+                <h4>{{current_user.username}}</h4>
+            </div>
+            <div class="col-md-8">
+                <p><strong>ID User: </strong>{{current_user.id}}</p>
+                <p><strong>Username: </strong>{{current_user.username}}</p>
+                <p><strong>Email: </strong>{{current_user.email}}</p>
+                <p><strong>Status: </strong><span class="badge bg-success">Aktiv</span></p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5 mb-5">
+    <h2 class="mb-4 fw-bold text-center">Your Order Cart</h2>
+    {% if cart_items %}
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card shadow-sm border-0 p-4">
+                    <table class="table align-middle">
+                        <thread>
+                            <tr>
+                                <th>Food Item: </th>
+                                <th>Price </th>
+                                <th>Quantity </th>
+                                <th>Subtotal </th>
+                                <th>Action </th>
+                            </tr>
+                        </thread>
+                        <tbody>
+                            {% for item in cart_items %}
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="{{url_for('static', filename='dishes_uploads/' + (item.food.image if item.food.image else 'default.png')) }}" class="rounded object-fit-cover me-3 shadow-sm" style="width: 60px;height: 60px;">
+                                        <span class="fw-bold">{{item.food.foodname}}</span>
+                                    </div>   
+                                </td>
+                                <td>{{"{:,.0f}".format(item.food.price)}}€</td>
+                                <td>
+                                    <span class="badge bg-secondary fs-6 px-3 py-2">{{item.quantity}}</span>
+                                </td>
+                                <td class="fw-bold text-danger">{{"{:,.0f}".format(item.subtotal)}}€</td>
+                                <td>
+                                    <a href ="{{url_for('main.remove_from_cart', id=item.food.id)}}" class="btn btn-sm btn-outline-danger">Remove</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card shadow-sm border-0 p-4 bg-light">
+                    <h4 class="fw-bold mb-3">Order Summary</h4>
+                    <hr>
+                    <div class="d-flex justify-content-between mb-3 fs-5">
+                        <span>Total: </span>
+                        <strong class="text-danger">{{"{:,.0f}".format(total_price)}}€</strong>
+                    </div>
+                    <a href="{{url_for('main.check_out')}}" class="btn btn-success w-100 py-2 fw-bold mb-2 shadow-sm">Proceed to Checkout</a>
+                    <a href="{{url_for('main.index')}}" class="btn btn-outline-secondary w-100">Continue Shopping</a>
+                </div>
+            </div>
+        </div>
+    {% else %}
+    <!--Empty Cart-->
+        <div class="text-center py-5">
+            <div class="mb-3">
+                <span style="font-size: 4rem;">🛒</span>
+            </div>
+            <p class="text-muted fs-5 mb-4">Your cart is currently empty</p>
+            <a href="{{url_for('main.index')}}" class="btn btn-primary px-4 py-2 fw-bold">Explore Menu</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
