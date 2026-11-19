@@ -1,0 +1,2 @@
+#/profile/<username>
+#/profile/edit

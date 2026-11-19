@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container py-4">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
+        <h2 class="fw-bold mb-0">Admin Dashboard & Orders</h2>
+        <div class="btn-group">
+            {% for st in ['All', 'Pending', 'Shipping', 'Completed'] %}
+            <a href="{{url_for('admin.admin_orders', status=st)}}" class="btn btn-sm {{'btn-dark' if current_filter == st else 'btn-outline-dark'}}">
+            {{st}}</a>
+            {% endfor %}
+        </div>
+    </div>
+    <!--Summary of KPIs-->
+    <div class="row g-3 mb-4">
+        <div class="col-6 col-md-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="text-muted small">Completed Revenue</div>
+                    <div class="fs-4 fw-bold text-success">{{"{:,.2f}".format(total_revenue)}}€</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="text-muted small">Pending</div>
+                    <div class="fs-4 fw-bold text-warning">{{pending_count}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="text-muted small">Shipping</div>
+                    <div class="fs-4 fw-bold text-info">{{shipping_count}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="text-muted small">Completed</div>
+                    <div class="fs-4 fw-bold text-primary">{{completed_count}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Order Grid-->
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+        {% for order in orders %}
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                    <span class="fw-bold">Order #{{order.id}}</span>
+                    {% if order.status=='Pending' %}
+                        <span class="badge bg-warning text-dark">Pending</span>
+                    {% elif order.status=='Shipping' %}
+                        <span class="badge bg-info text-dark">Shipping</span>
+                    {% else %}
+                        <span class="badge bg-success">Completed</span>
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    <div class="fw-semibold">{{order.cus_name}}</div>
+                    <div class="text-muted small mb-2">{{order.cus_phone}}</div>
+                    <div class="fw-bold text-danger fs-5 mb-2">{{"{:,.2f}".format(order.total_price)}}€</div>
+                    <div class="small text-muted">{{order.items|length}} item(s) ordered</div>
+                </div>
+                <div class="card-footer bg-white border-top-0 pt-0">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <button type="button" class="btn btn-sm btn-outline-secondary w-100" data-bs-toggle="modal" data-bs-target="#orderModal{{order.id}}">View Details</button>
+                    </div>
+                    <form action="{{url_for('admin.update_order', order_id=order.id)}}" method="POST">
+                        <select name="status" class="form-select form-select-sm" aria-label="Change order status" onchange="this.form.submit()">
+                            <option value="Pending"{{'selected' if order.status=='Pending'}}>Pending</option>
+                            <option value="Shipping"{{'selected' if order.status=='Shipping'}}>Shipping</option>
+                            <option value="Completed"{{'selected' if order.status=='Completed'}}>Completed</option>
+                        </select> 
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--Order Detail Modal-->
+        <div class="modal fade" id="orderModal{{order.id}}" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title fw-bold">Order #{{order.id}} Details</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="mb-1"><strong>Customer: </strong>{{order.cus_name}}</p>
+                        <p class="mb-1"><strong>Email: </strong>{{order.cus_email}}</p>
+                        <p class="mb-1"><strong>Phone: </strong>{{order.cus_phone }}</p>
+                        <p class="mb-3"><strong>Address: </strong>{{order.cus_address}}</p>
+                        <hr>
+                        <h6 class="fw-bold">Items</h6>
+                        <ul class="list-group list-group-flush mb-3">
+                            {% for item in order.items %}
+                            <li class="list-group-item d-flex justify-content-between px-0">
+                                <span>{{item.food.foodname}} x {{item.quantity}}</span>
+                                <strong>{{"{:,.2f}".format(item.price*item.quantity)}}€</strong>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        <div class="d-flex justify-content-between fs-6">
+                            <strong>Total Amount: </strong>
+                            <strong class="text-danger">{{"{:,.2f}".format(order.total_price)}}€</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="col-12">
+            <div class="text-center py-5 text-muted bg-white rounded shadow-sm">No orders found.</div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

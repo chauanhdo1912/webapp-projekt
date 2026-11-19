@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-5" style="max-width: 600px">
+    <h2 class="mb-4 fw-bold text-center">Add new food</h2>
+
+    <form method="POST" enctype="multipart/form-data" clas="card p-4 shadow-sm border-0">
+        <div class="mb-3">
+            <label for="foodname" class="form-label fw-bold">Food name: </label>
+            <input type="text" class="form-control" id="foodname" name="foodname" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="price" class="form-label fw-bold">Price: </label>
+            <input type="number" class="form-control" id="price" name="price" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label fw-bold">Description: </label>
+            <input type="text" class="form-control" id="description" name="description">
+        </div>
+
+        <div class="mb-3">
+            <label for="category" class="form-label fw-bold">Category: </label>
+            <input type="text" class="form-control" id="category" name="category">
+        </div>
+
+        <div class="mb-3">
+            <label for="image" class="form-label fw-bold">Food Image: </label>
+            <input type="file" class="form-control" id="image" name ='image' accept="image/*">
+        </div>
+
+        <button type="submit" class="btn btn-success w-100 py-2 fw-bold">Save the food</button>
+    </form>
+    
+    <div class="text-center mt-3">
+            <a href="{{url_for('main.index')}}" class="text-decoration-none">Back to Home</a>
+        </div>
+</div>
+{% endblock %}

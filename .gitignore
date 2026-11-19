@@ -1,9 +1,8 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
-
-venv/
-
+.env
+*.db
+*.sqlite3
 instance/
-
-# Jeder soll seine eigene lokale Datenbank haben
-Nutzer.db
+__pycache__/
+*.pyc
+.venv/
+venv/
